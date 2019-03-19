@@ -7,16 +7,18 @@
       
 
       html {
-          background-color: #333;
+          background-color: #222;
           background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGQAAABkAgMAAAANjH3HAAAACVBMVEUaGhohISElJSUh9lebAAAB20lEQVRIx4XWuZXDMAwE0C0SAQtggIIYoAAEU+aKOHhYojTrYP2+QfOW/5QIJOih/q8HwF/pb3EX+UPIveYcQGgEHiu9hI+ihEc5Jz5KBIlRRRaJ1JtoSAl5Hw96hLB1/up1tnIXOck5jZQy+3iU2hAOKSH1JvwxHsp+5TLF5MOl1/MQXsVs1miXc+KDbYydyMeUgpPQreZ7fWidbNhkXNJSeAhc6qHmHD8AYovunYyEACWEbyIhNeB9fRrH3hFi0bGPLuEW7xCNaohw1vAlS805nfsrTspclB/hVdoqusg53eH7FWot+wjYpOViX8KbFFKTwlnzvj65P9H/vD0/hibYBGhPwlPO8TmxRsaxsNnrUmUXpNhirlJMPr6Hqq9k5Xn/8iYQHYIuQsWFC6Z87IOxLxHphSY4SpuiU87xJnJr5axfeRd+lnMExXpEWPpuZ1v7qZdNBOjiHzDREHX5fs5Zz9p6X0vVKbKKchlSl5rv+3p//FJ/PYvoKryI8vs+2G9lzRmnEKkh+BU8yDk515jDj/HAswu7CCz6U/Mxb/PnC9N41ndpU4hUU7JGk/C9PmP/M2xZYdvBW2PObyf1IUiIzoHmHW9yTncliYs9A9tVNppdShfgQaTLMf+j3X723tLeHgAAAABJRU5ErkJggg==);
           background-attachment: fixed;
-          color: #eeeeee;
-          font-size: 1.2em;
-          font-family: serif;
+          color: #fff;
+          font-size: 16px;
+          line-height: 1.4em;
+          font-family: sans-serif;
       }
       h1, h2, h3, h4, h5 {
           font-weight: lighter;
           font-style: italic;
+          font-family: serif;
           color: #9baaff;
       }
       a {
@@ -91,26 +93,23 @@ p>code {
     
       <ul>
   <li><a href="#elixir-first-impressions">Elixir first impressions</a></li>
-  <li><a href="#notable-differences-and-new-concepts">Notable differences and new concepts</a>
+  <li><a href="#the-good-stuff">The good stuff</a>
   <ul>
-    <li><a href="#the-ones-i-really-like">The ones I really like</a>
-    <ul>
-      <li><a href="#structs">Structs</a></li>
-      <li><a href="#strings">Strings</a></li>
-      <li><a href="#enumerables">Enumerables</a></li>
-      <li><a href="#ranges">Ranges</a></li>
-      <li><a href="#streams">Streams</a></li>
-      <li><a href="#use">Use</a></li>
-      <li><a href="#define-modules-in-the-shell">Define modules in the shell</a></li>
-    </ul></li>
-    <li><a href="#those-im-not-sure-about">Those I'm not sure about</a>
-    <ul>
-      <li><a href="#rebinding-variables">Rebinding variables</a></li>
-      <li><a href="#lower-case-variables-atoms-and-aliases">Lower case variables, atoms and aliases</a></li>
-    </ul></li>
+    <li><a href="#structs">Structs</a></li>
+    <li><a href="#strings">Strings</a></li>
+    <li><a href="#enumerables">Enumerables</a></li>
+    <li><a href="#ranges">Ranges</a></li>
+    <li><a href="#streams">Streams</a></li>
+    <li><a href="#define-modules-in-the-shell">Define modules in the shell</a></li>
+    <li><a href="#use">Use</a></li>
   </ul></li>
-  <li><a href="#stuff-i-need-to-learn-about">Stuff I need to learn about</a></li>
+  <li><a href="#the-stuff-im-not-sure-about">The stuff I'm not sure about</a>
+  <ul>
+    <li><a href="#rebinding-variables">Rebinding variables</a></li>
+    <li><a href="#lower-case-variables-atoms-and-aliases">Lower case variables, atoms and aliases</a></li>
+  </ul></li>
   <li><a href="#some-early-conclusions">Some early conclusions</a></li>
+  <li><a href="#next-on-my-reading-list">Next on my reading list</a></li>
 </ul>
 
     
@@ -121,28 +120,50 @@ p>code {
           <div class="navbar">
             <span style="font-weight: 1.4em; flex-grow: 1">Radu Ciorba</span>
             <span style="flex-grow: 0">
-              <a href="/">Blog</a>
-              <a href="/talks/">Presentations</a>
-              <a href="/about/">About</a>
+              <a href="/blog/">Blog</a>
+              <a href="/projects/">Projects</a>
+              <a href="/talks/">Talks</a>
+              <a href="/">About</a>
             </span>
           </div>
           
   
     <h1 id="elixir-first-impressions">Elixir first impressions</h1>
 
-<p>To cement what I'm learning while exploring Elixir, I'm going to write down my thoughts and
-impressions.</p>
+<p>I'm going to write down my thoughts on Elixir as I'm learning the language, mostly to
+cement what I'm learning, and to be able to refer to these notes later.</p>
 
 <p>Where am I coming from? I have some Erlang knowledge and, as I'm diving in to Elixir, I
 find myself looking for the similarities (there are obviously many) and the differences.
-Also, for a full disclaimer, I have to warn you that all of my assumptions are shaped
-(sometimes without me even realizing it) by over 10 years of Python.</p>
+Also, I should state that all my assumptions are shaped (sometimes without me even
+realizing it) by over 10 years of Python.</p>
 
-<h1 id="notable-differences-and-new-concepts">Notable differences and new concepts</h1>
+<p>So let's get to it. This post will include some code examples. The code should be simple
+and self explanatory. The only construct I feel needs an introduction is the function
+capturing operator <code>&amp;</code>.</p>
 
-<h2 id="the-ones-i-really-like">The ones I really like</h2>
+<p>It can be used to quickly make an anonymous function(what we'd call a fun in Erlang) out
+of a function.</p>
 
-<h3 id="structs">Structs</h3>
+<div class="codehilite"><pre><span></span><code><span class="gp">iex(3)&gt; </span><span class="o">&amp;</span><span class="n">is_atom</span><span class="o">/</span><span class="mi">1</span>
+<span class="go">&amp;:erlang.is_atom/1</span>
+</code></pre></div>
+
+<p>Equivalent in Erlang:</p>
+
+<div class="codehilite"><pre><span></span><code><span class="mi">2</span><span class="o">&gt;</span> <span class="k">fun</span> <span class="nn">erlang</span><span class="p">:</span><span class="nb">is_atom</span><span class="o">/</span><span class="mi">1</span><span class="p">.</span>
+<span class="k">fun</span> <span class="nn">erlang</span><span class="p">:</span><span class="nb">is_atom</span><span class="o">/</span><span class="mi">1</span>
+</code></pre></div>
+
+<p>In elixir <code>&amp;</code> can be used as a shortcut for creating anonymous functions:</p>
+
+<div class="codehilite"><pre><span></span><code><span class="gp">iex(4)&gt; </span><span class="o">&amp;</span><span class="p">(</span><span class="ni">&amp;1</span> <span class="o">*</span> <span class="mi">2</span><span class="p">)</span>
+<span class="go">#Function&lt;6.128620087/1 in :erl_eval.expr/5&gt;</span>
+</code></pre></div>
+
+<h1 id="the-good-stuff">The good stuff</h1>
+
+<h2 id="structs">Structs</h2>
 
 <p>Basically just Maps, but with a declared structure. Unlike regular maps that would allow
 one to add any key, <a href="https://elixir-lang.org/getting-started/structs.html">Structs</a>
@@ -151,14 +172,14 @@ will see a similarity in how Structs are built on top of Maps.</p>
 
 <p>I've felt the need for something like this in Erlang when I had used a map as config for
 an application. I had a bunch of very hard to debug test failures because I had
-missconfigured the app, but I hadn't checked upfront if everything in the config was ok. I
+miss-configured the app, but I hadn't checked upfront if everything in the config was OK. I
 ended up writing some check code myself and, reading about structs, I think they would
 have been a perfect fit for my problem.</p>
 
-<h3 id="strings">Strings</h3>
+<h2 id="strings">Strings</h2>
 
 <p>Ages ago Erlang was notorious for it's poor handling of strings. Thankfully Erlang has
-gotten better at this, and now using binaries as strings is the preffered approach. Elixir
+gotten better at this, and now using binaries as strings is the preferred approach. Elixir
 embraces the binary string and makes the syntax less cumbersome.</p>
 
 <p>Binary strings no longer need 3 characters to open, and another 3 to close.</p>
@@ -171,7 +192,7 @@ embraces the binary string and makes the syntax less cumbersome.</p>
 
 <p><a href="https://elixir-lang.org/getting-started/basic-types.html#strings">Read more about Strings</a></p>
 
-<p>Because compatibillity with Erlang is important, the classic Erlang string (which is a
+<p>Because compatibility with Erlang is important, the classic Erlang string (which is a
 list of integers) is also available. In Elixir it's called a charlist.</p>
 
 <p>Charlists, classic Erlang strings:</p>
@@ -184,9 +205,9 @@ list of integers) is also available. In Elixir it's called a charlist.</p>
 
 <p>The only problem I can see is that having both type of strings could be confusing for
 people who come to Elixir without knowing the history of Erlang, especially since it's
-only a single vs double quote that differetiates them visually.</p>
+only a single vs double quote that differentiates them visually.</p>
 
-<h3 id="enumerables">Enumerables</h3>
+<h2 id="enumerables">Enumerables</h2>
 
 <p>Implement the
 <a href="https://elixir-lang.org/getting-started/enumerables-and-streams.html#enumerables">Enumerable</a>
@@ -207,17 +228,17 @@ implements common operations like sort, filter, map, reduce, etc.</p>
 that there's a way to implement your own collections, that compose well with the rest of
 the language.</p>
 
-<h3 id="ranges">Ranges</h3>
+<h2 id="ranges">Ranges</h2>
 
 <p>A <a href="">Range</a> is a sequence of ascending or descending consecutive integers. Very much like
-Python's range, only you can't specify a custom step. They're efficient because ony the
+Python's range, only you can't specify a custom step. They're efficient because only the
 start and end are stored in memory. Ranges are Enumerable.</p>
 
-<h3 id="streams">Streams</h3>
+<h2 id="streams">Streams</h2>
 
 <p>As the name suggests
 <a href="https://elixir-lang.org/getting-started/enumerables-and-streams.html#streams">Streams</a>
-provide a way to stream data one item at a time. You can think of them like unix
+provide a way to stream data one item at a time. You can think of them like UNIX
 pipes. Sadly Elixir's pipe operator (<code>|&gt;</code>) might resemble pipes, but it's just syntactic
 sugar for composing function calls. So while they look similar, unlike pipes data is not
 passed to the next function as soon as it's available, but it's passed when the function
@@ -284,45 +305,45 @@ each item produced. For that we'll use Stream.map to apply IO.inspect to each el
 <span class="go">6</span>
 </code></pre></div>
 
-<p>And voila. I know it's a very simple example but hopefuly it gave you a feel for how you
+<p>And voila. I know it's a very simple example but hopefully it gave you a feel for how you
 can use Streams to process data.</p>
 
-<p>Erlang Solutions have a really good article about <a href="https://www.erlang-solutions.com/blog/building-an-elixir-stream.html">using Streams for effiency
-gains</a>, I recomend
+<p>Erlang Solutions have a really good article about <a href="https://www.erlang-solutions.com/blog/building-an-elixir-stream.html">using Streams for efficiency
+gains</a>, I recommend
 you check it out.</p>
 
-<h3 id="use">Use</h3>
+<h2 id="define-modules-in-the-shell">Define modules in the shell</h2>
+
+<p>This might not be a huge deal, but for me it's great that I can use the shell to quickly
+test out anything I'm uncertain about. See an example of this in the next section.</p>
+
+<h2 id="use">Use</h2>
 
 <p>Maybe it's because of my Python background, but sometimes I found myself yearning for
 something like inheritance to reduce boilerplate in my Erlang code. So I'm very happy to
 see Elixir's
-<a href="https://elixir-lang.org/getting-started/alias-require-and-import.html#use">use</a>.</p>
+<a href="https://elixir-lang.org/getting-started/alias-require-and-import.html#use">use</a>.
+Now, while it might look like inheritance at first glance, it's actually macro expansion.</p>
 
-<p>Now while it might look like inheritance at first glance, it's actually macro expansion. I
-can't say much more about this because I haven't really used it yet</p>
+<p>Here's an example:</p>
 
-<h3 id="define-modules-in-the-shell">Define modules in the shell</h3>
-
-<p>This might not be a huge deal, but for me it's great I can use the shell to quickly test
-out anything I'm uncertain about.</p>
-
-<div class="codehilite"><pre><span></span><code><span class="gp">iex(3)&gt; </span><span class="kd">defmodule</span> <span class="nc">Foo</span> <span class="k">do</span>
-<span class="gp">...(3)&gt; </span>  <span class="kd">def</span> <span class="n">bar</span><span class="p">()</span> <span class="k">do</span>
-<span class="gp">...(3)&gt; </span>    <span class="nc">IO</span><span class="o">.</span><span class="n">puts</span><span class="p">(</span><span class="s2">&quot;foobar&quot;</span><span class="p">)</span>
-<span class="gp">...(3)&gt; </span>  <span class="k">end</span>
-<span class="gp">...(3)&gt; </span><span class="k">end</span>
-<span class="go">{:module, Foo,</span>
-<span class="go"> &lt;&lt;70, 79, 82, 49, 0, 0, 4, 60, 66, 69, 65, 77, 65, 116, 85, 56, 0, 0, 0, 136,</span>
-<span class="go">   0, 0, 0, 15, 10, 69, 108, 105, 120, 105, 114, 46, 70, 111, 111, 8, 95, 95,</span>
-<span class="go">   105, 110, 102, 111, 95, 95, 7, 99, 111, ...&gt;&gt;, {:bar, 0}}</span>
-<span class="gp">iex(4)&gt; </span><span class="nc">Foo</span><span class="o">.</span><span class="n">bar</span><span class="p">()</span>
-<span class="go">foobar</span>
-<span class="go">:ok</span>
+<div class="codehilite"><pre><span></span><code><span class="gp">iex(1)&gt; </span><span class="kd">defmodule</span> <span class="nc">MyServer</span> <span class="k">do</span>
+<span class="gp">...(1)&gt; </span>  <span class="kn">use</span> <span class="nc">GenServer</span>
+<span class="gp">...(1)&gt; </span>  <span class="kd">def</span> <span class="n">init</span><span class="p">(</span><span class="ss">:ok</span><span class="p">)</span> <span class="k">do</span>
+<span class="gp">...(1)&gt; </span>    <span class="p">{</span><span class="ss">:ok</span><span class="p">,</span> <span class="p">%{}}</span>
+<span class="gp">...(1)&gt; </span>  <span class="k">end</span>
+<span class="gp">...(1)&gt; </span><span class="k">end</span>
+<span class="go">{:module, MyServer,</span>
+<span class="go"> &lt;&lt;70, 79, 82, 49, 0, 0, 15, 32, 66, 69, 65, 77, 65, 116, 85, 56, 0, 0, 1, 152,</span>
+<span class="go">   0, 0, 0, 41, 15, 69, 108, 105, 120, 105, 114, 46, 77, 121, 83, 101, 114, 118,</span>
+<span class="go">   101, 114, 8, 95, 95, 105, 110, 102, 111, ...&gt;&gt;, {:init, 1}}</span>
+<span class="gp">iex(2)&gt; </span><span class="p">{</span><span class="ss">:ok</span><span class="p">,</span> <span class="n">pid</span><span class="p">}</span> <span class="o">=</span> <span class="nc">GenServer</span><span class="o">.</span><span class="n">start_link</span><span class="p">(</span><span class="nc">MyServer</span><span class="p">,</span> <span class="ss">:ok</span><span class="p">)</span>
+<span class="go">{:ok, #PID&lt;0.119.0&gt;}</span>
 </code></pre></div>
 
-<h2 id="those-im-not-sure-about">Those I'm not sure about</h2>
+<h1 id="the-stuff-im-not-sure-about">The stuff I'm not sure about</h1>
 
-<h3 id="rebinding-variables">Rebinding variables</h3>
+<h2 id="rebinding-variables">Rebinding variables</h2>
 
 <p>In Elixir, unlike in Erlang, you can rebind variables. If you've programmed Erlang before,
 the following code might look odd.</p>
@@ -359,7 +380,7 @@ bound to two distinct values:</p>
 <div class="codehilite"><pre><span></span><code><span class="gp">iex(1)&gt; </span><span class="p">{</span><span class="o">^</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">}</span> <span class="o">=</span> <span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">}</span>
 </code></pre></div>
 
-<p>Also, just like Erlang, anything on the righ hand side will never be bound, only
+<p>Also, just like Erlang, anything on the right hand side will never be bound, only
 matched. So the following will never bind a or b, instead it will attempt a match:</p>
 
 <div class="codehilite"><pre><span></span><code><span class="gp">iex(1)&gt; </span><span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">}</span> <span class="o">=</span> <span class="p">{</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">}</span>
@@ -368,12 +389,12 @@ matched. So the following will never bind a or b, instead it will attempt a matc
 <p>The downside for Erlang's match-unless-bound is you need to know which variables are
 already bound. Elixir's pin operator is more explicit.</p>
 
-<h3 id="lower-case-variables-atoms-and-aliases">Lower case variables, atoms and aliases</h3>
+<h2 id="lower-case-variables-atoms-and-aliases">Lower case variables, atoms and aliases</h2>
 
 <p>Erlang's approach, where anything that starts with a lowercase letter is an atom, and
 anything capitalized is a variable, is just another one of it's quirks. Maybe you saw some
 Elixir code, noticed all those lowercase variables, <code>:</code> as a prefix for atoms, and assumed
-capitalization doesn't matter in Elixir... nope, capitaization still matters in Elixir. If
+capitalization doesn't matter in Elixir... nope, capitalization still matters in Elixir. If
 you type a capitalized word, because of another feature called Aliasing, you get an atom.</p>
 
 <p>Elixir atoms:</p>
@@ -398,10 +419,32 @@ you type a capitalized word, because of another feature called Aliasing, you get
 now potentially shadow functions. So when you write <code>is_number(1)</code> are you calling
 <code>Kernel.is_number/1</code> or are you calling an anonymous function bound to the variable
 <code>is_number</code>? In order to avoid the ambiguity in Elixir you have to add a dot after the
-variable name when calling anonymous functions. So if you have a local varibale named
+variable name when calling anonymous functions. So if you have a local variable named
 is_number bound to a fun and want to call it, you'd use <code>is_number.(1)</code>.</p>
 
-<h1 id="stuff-i-need-to-learn-about">Stuff I need to learn about</h1>
+<h1 id="some-early-conclusions">Some early conclusions</h1>
+
+<p>The biggest upside is the large and growing community plus the ecosystem of open source
+packages. If you've ever searched for an Erlang package to solve some problem and
+encountered 2 or 3 repos, neither having any activity in the last 3 years, you'll really
+appreciate this.</p>
+
+<p>Now on to something that irks me. Maybe because I've had Python's <em>"There should be one--
+and preferably only one --obvious way to do it."</em> drilled in to my head for a decade I
+find myself squirming a bit when I see all these:</p>
+
+<ul>
+<li><p>Conditionals? In addition to Erlang's <code>cond</code> and <code>if</code> we also have <code>unless</code>. No biggie.</p></li>
+<li><p>Should I <code>require</code> this module? <code>import</code> it? <code>use</code> it? There is good documentation
+about the differences, but I can't shake the feeling there are too many options.</p></li>
+<li><p>Aliases. Not a complicated concept, but there seem to be many different ways to create
+an alias, and some are not explicit.</p></li>
+</ul>
+
+<p>Still, when I see Erlang gen_server boilerplate and compare it with a simple Elixir
+GenServer, all is forgiven.</p>
+
+<h1 id="next-on-my-reading-list">Next on my reading list</h1>
 
 <ul>
 <li><a href="https://elixir-lang.org/getting-started/protocols.html">Protocols</a>.</li>
@@ -411,28 +454,6 @@ seem to be quite powerful in Elixir</li>
 applications in Elixir.</li>
 <li>Maybe learn what the elixir app does, and why we need to start it to <a href="https://joearms.github.io/published/2016-03-13-Calling-Elixir-From_Erlang.html">call Elixir from
 Erlang</a>.</li>
-</ul>
-
-<h1 id="some-early-conclusions">Some early conclusions</h1>
-
-<p>Elixir is a bigger language, there are simply more concepts to learn, in addition to all
-the concepts in Erlang.</p>
-
-<p>The biggest upside is the large and growing community plus the ecosystem of open source
-packages. If you've ever searched for an Erlang package to solve some problem and
-encountered 2 or 3 repos, neither having any activity in the last 3 years, you'll really
-apreciate this.</p>
-
-<p>Now on to something that irks me. Maybe because I've had Python's <em>"There should be one--
-and preferably only one --obvious way to do it."</em> drilled in to my head for a decade I
-find myself squirming a bit when I see all these:</p>
-
-<ul>
-<li><p>Conditionals? In addition to Erlang's <code>cond</code> and <code>if</code> we also have <code>unless</code>. No biggie.</p></li>
-<li><p>Should I <code>require</code> this module? <code>import</code> it? <code>use</code> it? There is good documentation
-about the diferences, but I can't shake the feeling there are too many options.</p></li>
-<li><p>Aliases. Not a complicated concept, but there seem to be many different ways to create
-an alias.</p></li>
 </ul>
 
   
