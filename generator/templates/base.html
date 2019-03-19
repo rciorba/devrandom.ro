@@ -3,6 +3,7 @@
 <html>
   <head>
     <title>{{title|default('Radu Ciorba')}}</title>
+    <meta name="viewport" content="width=device-width">
     <style>
       {% block css %}
       html {
@@ -37,7 +38,7 @@
       .content-wrapper{
           max-width: 900px;
       }
-      @media (min-width: 1100px){
+      @media (min-width: 1100px) {
           .flex-container {
               display: flex;
               align-items: stretch;
@@ -45,7 +46,12 @@
           .content-wrapper{
               flex-grow: 1;
           }
-    }
+      }
+      @media (max-width: 900px) {
+          .content-wrapper{
+              max-width: 100%;
+          }
+      }
     {% endblock %}
   </style>
   {% block extrahead %}

@@ -3,6 +3,7 @@
 <html>
   <head>
     <title>Radu Ciorba</title>
+    <meta name="viewport" content="width=device-width">
     <style>
       
       html {
@@ -37,7 +38,7 @@
       .content-wrapper{
           max-width: 900px;
       }
-      @media (min-width: 1100px){
+      @media (min-width: 1100px) {
           .flex-container {
               display: flex;
               align-items: stretch;
@@ -45,7 +46,12 @@
           .content-wrapper{
               flex-grow: 1;
           }
-    }
+      }
+      @media (max-width: 900px) {
+          .content-wrapper{
+              max-width: 100%;
+          }
+      }
     
   </style>
   
@@ -70,7 +76,7 @@
   <div class="blog-list">
     
     <p>
-      <h3><a href="/./blog/2019-03-learning-elixir.html">Elixir first impressions - 11th of March, 2019</a></h3>
+      <h2><a href="/./blog/2019-03-learning-elixir.html">Elixir first impressions - 11th of March, 2019</a></h2>
       Thoughts and first impressions as I&#39;m diving in to Elixir.
     </p>
     

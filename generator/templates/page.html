@@ -4,7 +4,7 @@
   <div class="blog-list">
     {% for (item, page_meta) in page %}
     <p>
-      <h3><a href="/{{ page_meta['path'] }}">{{ page_meta['title'] }} - {{page_meta['published']}}</a></h3>
+      <h2><a href="/{{ page_meta['path'] }}">{{ page_meta['title'] }} - {{page_meta['published']}}</a></h2>
       {{ page_meta['tagline'] }}
     </p>
     {% endfor %}
