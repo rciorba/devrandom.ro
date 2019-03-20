@@ -121,6 +121,11 @@ A [Range]() is a sequence of ascending or descending consecutive integers. Very 
 Python's range, only you can't specify a custom step. They're efficient because only the
 start and end are stored in memory. Ranges are Enumerable.
 
+```iex
+iex(10)> 0..9
+0..9
+```
+
 ## Streams
 As the name suggests
 [Streams](https://elixir-lang.org/getting-started/enumerables-and-streams.html#streams)
