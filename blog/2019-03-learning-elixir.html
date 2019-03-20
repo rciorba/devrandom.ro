@@ -98,7 +98,10 @@ p>code {
   <div class="toc">
     
       <ul>
-  <li><a href="#elixir-first-impressions">Elixir first impressions</a></li>
+  <li><a href="#elixir-first-impressions">Elixir first impressions</a>
+  <ul>
+    <li><a href="#a-word-on-annonymous-functions">A word on annonymous functions</a></li>
+  </ul></li>
   <li><a href="#the-good-stuff">The good stuff</a>
   <ul>
     <li><a href="#structs">Structs</a></li>
@@ -115,7 +118,7 @@ p>code {
     <li><a href="#lower-case-variables-atoms-and-aliases">Lower case variables, atoms and aliases</a></li>
   </ul></li>
   <li><a href="#some-early-conclusions">Some early conclusions</a></li>
-  <li><a href="#next-on-my-reading-list">Next on my reading list</a></li>
+  <li><a href="#where-to-next">Where to next</a></li>
 </ul>
 
     
@@ -128,7 +131,6 @@ p>code {
             <span style="flex-grow: 0">
               <a href="/blog/">Blog</a>
               <a href="/projects/">Projects</a>
-              <a href="/talks/">Talks</a>
               <a href="/">About</a>
             </span>
           </div>
@@ -144,26 +146,37 @@ find myself looking for the similarities (there are obviously many) and the diff
 Also, I should state that all my assumptions are shaped (sometimes without me even
 realizing it) by over 10 years of Python.</p>
 
-<p>So let's get to it. This post will include some code examples. The code should be simple
-and self explanatory. The only construct I feel needs an introduction is the function
-capturing operator <code>&amp;</code>.</p>
+<p>So let's get to it.</p>
 
-<p>It can be used to quickly make an anonymous function(what we'd call a fun in Erlang) out
-of a function.</p>
+<h2 id="a-word-on-annonymous-functions">A word on annonymous functions</h2>
+
+<p>This post will include some code examples. The code should be simple and self
+explanatory. The only construct I feel needs an introduction is the function capturing
+operator <code>&amp;</code>, and how it can be used as shorthand for declaring anonymous functions.</p>
+
+<p>An Elixir example of function capturing, to quickly make an anonymous function:</p>
 
 <div class="codehilite"><pre><span></span><code><span class="gp">iex(3)&gt; </span><span class="o">&amp;</span><span class="n">is_atom</span><span class="o">/</span><span class="mi">1</span>
 <span class="go">&amp;:erlang.is_atom/1</span>
 </code></pre></div>
 
-<p>Equivalent in Erlang:</p>
+<p>And the equivalent in Erlang:</p>
 
 <div class="codehilite"><pre><span></span><code><span class="mi">2</span><span class="o">&gt;</span> <span class="k">fun</span> <span class="nn">erlang</span><span class="p">:</span><span class="nb">is_atom</span><span class="o">/</span><span class="mi">1</span><span class="p">.</span>
 <span class="k">fun</span> <span class="nn">erlang</span><span class="p">:</span><span class="nb">is_atom</span><span class="o">/</span><span class="mi">1</span>
 </code></pre></div>
 
-<p>In elixir <code>&amp;</code> can be used as a shortcut for creating anonymous functions:</p>
+<p>In Elixir <code>&amp;</code> can also be used as a shortcut for creating anonymous functions.</p>
 
-<div class="codehilite"><pre><span></span><code><span class="gp">iex(4)&gt; </span><span class="o">&amp;</span><span class="p">(</span><span class="ni">&amp;1</span> <span class="o">*</span> <span class="mi">2</span><span class="p">)</span>
+<p>Here's an example of an annonymous function:</p>
+
+<div class="codehilite"><pre><span></span><code><span class="gp">iex(1)&gt; </span><span class="k">fn</span> <span class="p">(</span><span class="n">a</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">a</span> <span class="o">*</span> <span class="mi">2</span> <span class="k">end</span>
+<span class="go">#Function&lt;6.128620087/1 in :erl_eval.expr/5&gt;</span>
+</code></pre></div>
+
+<p>And here's an equivalent using the <code>&amp;</code> shorthand:</p>
+
+<div class="codehilite"><pre><span></span><code><span class="gp">iex(2)&gt; </span><span class="o">&amp;</span><span class="p">(</span><span class="ni">&amp;1</span> <span class="o">*</span> <span class="mi">2</span><span class="p">)</span>
 <span class="go">#Function&lt;6.128620087/1 in :erl_eval.expr/5&gt;</span>
 </code></pre></div>
 
@@ -367,14 +380,14 @@ the following code might look odd.</p>
 <span class="go">2</span>
 </code></pre></div>
 
-<p>Pattern matching is much like in Erlang. For example, this can't match because a would be
-bound to two distinct values:</p>
+<p>Pattern matching is much like in Erlang. For example, this can't match because the
+variable <code>a</code> would be bound to two distinct values:</p>
 
 <div class="codehilite"><pre><span></span><code><span class="gp">iex(1)&gt; </span><span class="p">{</span><span class="n">a</span><span class="p">,</span> <span class="n">a</span><span class="p">}</span> <span class="o">=</span> <span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">}</span>
 <span class="gr">** (MatchError) no match of right hand side value: {1, 2}</span>
 </code></pre></div>
 
-<p>This is OK.</p>
+<p>This however is OK.</p>
 
 <div class="codehilite"><pre><span></span><code><span class="gp">iex(1)&gt; </span><span class="p">{</span><span class="n">a</span><span class="p">,</span> <span class="n">a</span><span class="p">}</span> <span class="o">=</span> <span class="p">{</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">}</span>
 </code></pre></div>
@@ -430,9 +443,9 @@ is_number bound to a fun and want to call it, you'd use <code>is_number.(1)</cod
 
 <h1 id="some-early-conclusions">Some early conclusions</h1>
 
-<p>The biggest upside is the large and growing community plus the ecosystem of open source
+<p>Elixir's biggest upside is the large and growing community plus the ecosystem of open source
 packages. If you've ever searched for an Erlang package to solve some problem and
-encountered 2 or 3 repos, neither having any activity in the last 3 years, you'll really
+encountered 2 or 3 repos, neither having any activity in the last 5 years, you'll really
 appreciate this.</p>
 
 <p>Now on to something that irks me. Maybe because I've had Python's <em>"There should be one--
@@ -443,24 +456,30 @@ find myself squirming a bit when I see all these:</p>
 <li><p>Conditionals? In addition to Erlang's <code>cond</code> and <code>if</code> we also have <code>unless</code>. No biggie.</p></li>
 <li><p>Should I <code>require</code> this module? <code>import</code> it? <code>use</code> it? There is good documentation
 about the differences, but I can't shake the feeling there are too many options.</p></li>
-<li><p>Aliases. Not a complicated concept, but there seem to be many different ways to create
-an alias, and some are not explicit.</p></li>
+<li><p>Many different ways to create an alias, and some are not explicit.</p></li>
 </ul>
 
 <p>Still, when I see Erlang gen_server boilerplate and compare it with a simple Elixir
 GenServer, all is forgiven.</p>
 
-<h1 id="next-on-my-reading-list">Next on my reading list</h1>
+<p>So overall, Elixir looks really nice, and I can't wait to use it more.</p>
+
+<h1 id="where-to-next">Where to next</h1>
 
 <ul>
-<li><a href="https://elixir-lang.org/getting-started/protocols.html">Protocols</a>.</li>
+<li><a href="https://elixir-lang.org/getting-started/protocols.html">Protocols</a>. I have to learn
+more about them.</li>
 <li><a href="https://elixir-lang.org/getting-started/meta/quote-and-unquote.html">Macros</a>. They
-seem to be quite powerful in Elixir</li>
+seem to be quite powerful in Elixir.</li>
 <li><a href="https://hexdocs.pm/plug/readme.html">Plug</a>? The official way to write composable web
 applications in Elixir.</li>
 <li>Maybe learn what the elixir app does, and why we need to start it to <a href="https://joearms.github.io/published/2016-03-13-Calling-Elixir-From_Erlang.html">call Elixir from
 Erlang</a>.</li>
+<li>Last but by no means least, how to write tests.</li>
 </ul>
+
+<p>If you've spotted something inaccurate or have something to share, please <a
+href="https://twitter.com/rciorba">reach out</a>.</p>
 
   
   

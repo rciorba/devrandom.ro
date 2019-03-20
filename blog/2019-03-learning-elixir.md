@@ -1,7 +1,7 @@
 ---
 tags: elixir, Erlang
 title: Elixir first impressions
-published: 11th of March, 2019
+published: 20th of March, 2019
 tagline: >
   Thoughts and first impressions as I'm diving in to Elixir.
 
@@ -17,27 +17,37 @@ find myself looking for the similarities (there are obviously many) and the diff
 Also, I should state that all my assumptions are shaped (sometimes without me even
 realizing it) by over 10 years of Python.
 
-So let's get to it. This post will include some code examples. The code should be simple
-and self explanatory. The only construct I feel needs an introduction is the function
-capturing operator `&`.
+So let's get to it.
 
-It can be used to quickly make an anonymous function(what we'd call a fun in Erlang) out
-of a function.
+## A word on annonymous functions
 
+This post will include some code examples. The code should be simple and self
+explanatory. The only construct I feel needs an introduction is the function capturing
+operator `&`, and how it can be used as shorthand for declaring anonymous functions.
+
+An Elixir example of function capturing, to quickly make an anonymous function:
 ```iex
 iex(3)> &is_atom/1
 &:erlang.is_atom/1
 ```
 
-Equivalent in Erlang:
+And the equivalent in Erlang:
 ```erlang
 2> fun erlang:is_atom/1.
 fun erlang:is_atom/1
 ```
 
-In elixir `&` can be used as a shortcut for creating anonymous functions:
+In Elixir `&` can also be used as a shortcut for creating anonymous functions.
+
+Here's an example of an annonymous function:
 ```iex
-iex(4)> &(&1 * 2)
+iex(1)> fn (a) -> a * 2 end
+#Function<6.128620087/1 in :erl_eval.expr/5>
+```
+
+And here's an equivalent using the `&` shorthand:
+```iex
+iex(2)> &(&1 * 2)
 #Function<6.128620087/1 in :erl_eval.expr/5>
 ```
 
@@ -245,15 +255,15 @@ iex(8)> a
 2
 ```
 
-Pattern matching is much like in Erlang. For example, this can't match because a would be
-bound to two distinct values:
+Pattern matching is much like in Erlang. For example, this can't match because the
+variable `a` would be bound to two distinct values:
 
 ```iex
 iex(1)> {a, a} = {1, 2}
 ** (MatchError) no match of right hand side value: {1, 2}
 ```
 
-This is OK.
+This however is OK.
 
 ```iex
 iex(1)> {a, a} = {2, 2}
@@ -312,9 +322,9 @@ variable name when calling anonymous functions. So if you have a local variable 
 is_number bound to a fun and want to call it, you'd use `is_number.(1)`.
 
 # Some early conclusions
-The biggest upside is the large and growing community plus the ecosystem of open source
+Elixir's biggest upside is the large and growing community plus the ecosystem of open source
 packages. If you've ever searched for an Erlang package to solve some problem and
-encountered 2 or 3 repos, neither having any activity in the last 3 years, you'll really
+encountered 2 or 3 repos, neither having any activity in the last 5 years, you'll really
 appreciate this.
 
 Now on to something that irks me. Maybe because I've had Python's *"There should be one--
@@ -326,18 +336,24 @@ find myself squirming a bit when I see all these:
  * Should I `require` this module? `import` it? `use` it? There is good documentation
    about the differences, but I can't shake the feeling there are too many options.
 
- * Aliases. Not a complicated concept, but there seem to be many different ways to create
-   an alias, and some are not explicit.
+ * Many different ways to create an alias, and some are not explicit.
 
 Still, when I see Erlang gen_server boilerplate and compare it with a simple Elixir
 GenServer, all is forgiven.
 
-# Next on my reading list
+So overall, Elixir looks really nice, and I can't wait to use it more.
 
- * [Protocols](https://elixir-lang.org/getting-started/protocols.html).
+# Where to next
+
+ * [Protocols](https://elixir-lang.org/getting-started/protocols.html). I have to learn
+   more about them.
  * [Macros](https://elixir-lang.org/getting-started/meta/quote-and-unquote.html). They
-   seem to be quite powerful in Elixir
+   seem to be quite powerful in Elixir.
  * [Plug](https://hexdocs.pm/plug/readme.html)? The official way to write composable web
    applications in Elixir.
  * Maybe learn what the elixir app does, and why we need to start it to [call Elixir from
    Erlang](https://joearms.github.io/published/2016-03-13-Calling-Elixir-From_Erlang.html).
+ * Last but by no means least, how to write tests.
+
+If you've spotted something inaccurate or have something to share, please <a
+href="https://twitter.com/rciorba">reach out</a>.
