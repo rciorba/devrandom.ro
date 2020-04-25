@@ -12,13 +12,10 @@ def process_folder(path, tags, template_env):
     names = set(i.name for i in items)
     processed = {}
     for item in items:
-        # print(">", item.path)
-        if ".nogen" in names:
-            return
         name = item.name
         if item.is_file():
             html_fname = None
-            if not (name.startswith(".") or name.startswith("WIP")):
+            if not (name.startswith(".") or name.lower().startswith("wip")):
                 if name.endswith(".md"):
                     content, meta = process_markdown(item, tags, template_env)
                     html_fname = item.path[:-3] + ".html"
@@ -33,7 +30,7 @@ def process_folder(path, tags, template_env):
                     with open(html_fname, "w") as fd:
                         fd.write(content)
         elif item.is_dir():
-            if not name.startswith("."):
+            if not name.startswith(".") and ".norecurse" not in names:
                 process_folder(item.path, tags, template_env)
     if "index.jinja" not in names:
         process_listing(path, processed, template_env)
