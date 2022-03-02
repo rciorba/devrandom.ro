@@ -1,7 +1,7 @@
 ---
 tags: python, testing, TDD, case-study, pytest
 title: Verified Fakes: Best of Both Worlds
-published: 10th of November, 2019
+published: 27th of May, 2020
 tagline: >
   Get fast feedback and be confident you're testing the right thing 
 
@@ -10,8 +10,7 @@ tagline: >
 # Why do we write tests?
 
 To prove that the software is correct? Sure they increase confidence, but tests don't prove the code
-is "correct" in all ways, they just show that for the specific senarios tested the code behaves as
-expected.
+is "correct". They just show that for the specific senarios tested the code behaves as expected.
 
 To prevent regressions? This is a major benefit. There's a certain comfort when joining an existing
 project in knowing that if you've made a change and the tests still pass, you probably did not break
@@ -40,11 +39,11 @@ Skip this if you're just curious about the tests
 Zinc filled a very specific need at Presslabs: Geographic Load Balancig
 
 When someone looks up the domain for a client's site, we want them to get back the IP of a
-geographically close CDN server, for low latency. AWS already provides Policy Routed Records for
-this, but at a price that would make it hard to justify for your average Wordpress site in search of
-hosting. But, the building blocks of these Policy Routed Records are available in the Route 53 api
-so anyone can roll their own. That's what Zinc is DIY roll-your-own policy routed records using
-Route53.
+geographically close CDN server, to keep everythig fast. AWS already provides Policy Routed Records
+for this, but at a price that would make it hard to justify for your average Wordpress site in
+search of hosting. But, the building blocks of these Policy Routed Records are available in the
+Route 53 api so anyone can roll their own. That's what Zinc is DIY roll-your-own policy routed
+records using Route53.
 
 # How do we go about testing this?
 

@@ -4,8 +4,11 @@
 .toc {
     display: none;
 }
-.toc a {
-     color: #eeeeee;
+.dark .toc a {
+     color: #999;
+}
+.light .toc a {
+     color: #555;
 }
 
 
@@ -28,14 +31,22 @@
     padding-right: 10px;
     padding-bottom: 1px;
     padding-left: 10px;
+    border-radius: 2px;
 }
 p>code {
-    background: #2f1e2e;
     padding: 4px;
+    border-radius: 2px;
+}
+.dark p>code {
+    background: #2f1e2e;
+}
+.light p>code {
+    background: #fdf6e3;
 }
 {% endblock %}
 {% block extrahead %}
-  <link rel="stylesheet" href="/styles/code-dark.css">
+  <link rel="stylesheet" href="../styles/code-dark.css">
+  <link rel="stylesheet" href="../styles/code-light.css">
 {% endblock %}
 
 {% block before_container %}
