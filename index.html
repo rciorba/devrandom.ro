@@ -1,34 +1,73 @@
 <!DOCTYPE html>
 <meta charset="utf-8">
-<html>
+<html class="dark">
   <head>
     <title>Radu Ciorba</title>
     <meta name="viewport" content="width=device-width">
     <style>
       
 
+      :root{
+          --tile: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGQAAABkAgMAAAANjH3HAAAACVBMVEUaGhohISElJSUh9lebAAAB20lEQVRIx4XWuZXDMAwE0C0SAQtggIIYoAAEU+aKOHhYojTrYP2+QfOW/5QIJOih/q8HwF/pb3EX+UPIveYcQGgEHiu9hI+ihEc5Jz5KBIlRRRaJ1JtoSAl5Hw96hLB1/up1tnIXOck5jZQy+3iU2hAOKSH1JvwxHsp+5TLF5MOl1/MQXsVs1miXc+KDbYydyMeUgpPQreZ7fWidbNhkXNJSeAhc6qHmHD8AYovunYyEACWEbyIhNeB9fRrH3hFi0bGPLuEW7xCNaohw1vAlS805nfsrTspclB/hVdoqusg53eH7FWot+wjYpOViX8KbFFKTwlnzvj65P9H/vD0/hibYBGhPwlPO8TmxRsaxsNnrUmUXpNhirlJMPr6Hqq9k5Xn/8iYQHYIuQsWFC6Z87IOxLxHphSY4SpuiU87xJnJr5axfeRd+lnMExXpEWPpuZ1v7qZdNBOjiHzDREHX5fs5Zz9p6X0vVKbKKchlSl5rv+3p//FJ/PYvoKryI8vs+2G9lzRmnEKkh+BU8yDk515jDj/HAswu7CCz6U/Mxb/PnC9N41ndpU4hUU7JGk/C9PmP/M2xZYdvBW2PObyf1IUiIzoHmHW9yTncliYs9A9tVNppdShfgQaTLMf+j3X723tLeHgAAAABJRU5ErkJggg==);
+
+      }
       html {
-          background-color: #222;
-          background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGQAAABkAgMAAAANjH3HAAAACVBMVEUaGhohISElJSUh9lebAAAB20lEQVRIx4XWuZXDMAwE0C0SAQtggIIYoAAEU+aKOHhYojTrYP2+QfOW/5QIJOih/q8HwF/pb3EX+UPIveYcQGgEHiu9hI+ihEc5Jz5KBIlRRRaJ1JtoSAl5Hw96hLB1/up1tnIXOck5jZQy+3iU2hAOKSH1JvwxHsp+5TLF5MOl1/MQXsVs1miXc+KDbYydyMeUgpPQreZ7fWidbNhkXNJSeAhc6qHmHD8AYovunYyEACWEbyIhNeB9fRrH3hFi0bGPLuEW7xCNaohw1vAlS805nfsrTspclB/hVdoqusg53eH7FWot+wjYpOViX8KbFFKTwlnzvj65P9H/vD0/hibYBGhPwlPO8TmxRsaxsNnrUmUXpNhirlJMPr6Hqq9k5Xn/8iYQHYIuQsWFC6Z87IOxLxHphSY4SpuiU87xJnJr5axfeRd+lnMExXpEWPpuZ1v7qZdNBOjiHzDREHX5fs5Zz9p6X0vVKbKKchlSl5rv+3p//FJ/PYvoKryI8vs+2G9lzRmnEKkh+BU8yDk515jDj/HAswu7CCz6U/Mxb/PnC9N41ndpU4hUU7JGk/C9PmP/M2xZYdvBW2PObyf1IUiIzoHmHW9yTncliYs9A9tVNppdShfgQaTLMf+j3X723tLeHgAAAABJRU5ErkJggg==);
-          background-attachment: fixed;
-          color: #fff;
           font-size: 16px;
-          line-height: 1.4em;
+          line-height: 1.6em;
           font-family: sans-serif;
       }
+      html.dark {
+          background-image:
+              linear-gradient(#999, #999),
+              var(--tile);
+          background-blend-mode: multiply, normal;
+          background-attachment: fixed;
+          color: #fff;
+      }
+      html.light {
+          background-image:
+              linear-gradient(#DDD, #DDD),
+              var(--tile);
+          background-attachment: fixed;
+          background-blend-mode: screen, normal;
+          color: #000;
+      }
+      p, ul {
+          margin-top: 0.5em;
+          margin-bottom: 0.5em;
+      }
+
       h1, h2, h3, h4, h5 {
           font-weight: lighter;
           font-style: italic;
           font-family: serif;
+          margin-top: 1em;
+      }
+      html.dark :is(h1, h2, h3, h4, h5) {
           color: #9baaff;
       }
+      html.light :is(h1, h2, h3, h4, h5) {
+          color: #6b77aa;
+      }
       a {
-          color: #9baaff;;
           text-decoration: none;
       }
+      .dark a {
+          color: #9baaff;;
+
+      }
       a:hover {
-          color: #fff;
           text-decoration: underline;
+      }
+      .dark a:hover{
+          color: #fff;
+
+      }
+      .dark .darken {
+          display: none;
+      }
+      .light .lighten {
+          display: none;
       }
       .navbar {
           font-size: 1.3em;
@@ -53,12 +92,19 @@
               max-width: 100%;
           }
       }
+      .postscript {
+          margin-top: 2.5em;
+          font-size: 12px;
+      }
     
 .toc {
     display: none;
 }
-.toc a {
-     color: #eeeeee;
+.dark .toc a {
+     color: #999;
+}
+.light .toc a {
+     color: #555;
 }
 
 
@@ -81,15 +127,34 @@
     padding-right: 10px;
     padding-bottom: 1px;
     padding-left: 10px;
+    border-radius: 2px;
 }
 p>code {
-    background: #2f1e2e;
     padding: 4px;
+    border-radius: 2px;
+}
+.dark p>code {
+    background: #2f1e2e;
+}
+.light p>code {
+    background: #fdf6e3;
 }
 
   </style>
+  <script>
+  function toggle() {
+    var htmlEl = document.children[0];
+    console.log(htmlEl.className);
+    if(htmlEl.className === "dark") {
+      htmlEl.className = "light";
+    } else {
+      htmlEl.className = "dark";
+    }
+  }
+  </script>
   
-  <link rel="stylesheet" href="/styles/code-dark.css">
+  <link rel="stylesheet" href="../styles/code-dark.css">
+  <link rel="stylesheet" href="../styles/code-light.css">
 
   </head>
   <body>
@@ -104,8 +169,11 @@ p>code {
       <div class="flex-container">
         <div class="content-wrapper">
           <div class="navbar">
-            <span style="font-weight: 1.4em; flex-grow: 1">Radu Ciorba</span>
+            <span style="font-weight: 1.4em; flex-grow: 1">Radu Ciorba's corner of the internet</span>
             <span style="flex-grow: 0">
+              <a onclick="toggle()" title="toggle light/dark">
+                <span class="lighten">&#9788;</span><span class="darken">&#9790;</span>
+              </a>
               <a href="/blog/">Blog</a>
               <a href="/projects/">Projects</a>
               <a href="/">About</a>
@@ -118,12 +186,6 @@ p>code {
 <p>
   Hi, I'm Radu Ciorba, and I'm a software developer. This blog is a place for me to collect and
   publish my thoughts.
-</p>
-
-
-<p>
-  I'm Romanian, originally from Reșița but I've lived and worked in Timișoara for most of my life.
-  I've recently re-located to Munich, Germany.
 </p>
 
 <p>

@@ -7,18 +7,22 @@ tagline: >
 
 ---
 
+# Unknowingly Reinventing the Wheel
+TL;DR: I wrote my own "Parameterized Test" package because I didn't know about
+https://github.com/KazuCocoa/ex_parameterized
+
 # How this started: Parse nginx logs and write them to ES
 
 I don't run any tracking on this site, because of privacy concerns. But I am curious if anyone ever
-reads it, so I decided to load the logs in to ElasticSearch, so I can look at them with Kibana.
+reads it, so I decided to load the logs into ElasticSearch, so I can look at them with Kibana.
 
 But since I've done this before in Python, and I am trying to learn something else, let's implement
 it in Elixir.
 
 Because I didn't have the foresight to configure Nginx to log in a sane way, my logs are in the
 default (Debian?) format, and I'll need to parse that. Of course I wrote a simple test based on one
-of the actual logs, got that to work, aaaand it crashed on some request. So that became a test as
-well. Rinse-repeat I ended up with this test covering 3 inputs:
+of the actual logs, got that to work, aaaand it crashed on some other log line. So that became a
+test as well. Rinse-repeat I ended up with this test covering 3 inputs:
 
 ```elixir
 test "parse request" do
@@ -28,18 +32,18 @@ test "parse request" do
 end
 ```
 
-This is OK but if we're gonna be pedantic about it (and we will, what did you think this post ia
-about) it's not cool that this is just one test. What if I change the parse_request function so that
-I break the second case? It won't even run the third one.
+This is OK but if we're gonna be pedantic about it, it's not cool that this is just one test. What
+if I change the parse_request function so that I break the second case? It won't even run the third
+one.
 
 # Parameterized tests considered awsesome
 
-In the Python world we have a great testing framework called pytest. Pytest is great in many ways,
+In the Python world there's a great testing framework called pytest. Pytest is great in many ways,
 but if there's one feature I love the most, and the one I missed in ExUnit, that's parameterized
 tests.
 
-At it's core it's a simple thing. You can generate multiple tests from a single definition and a
-list of different inputs.
+At it's core it's a simple thing. It generates multiple tests from a single definition and a list of
+different inputs.
 
 Incidentally Erlang's eunit has test generators, so parametrized tests are a natural fit. Amusingly
 I assumed the lingo would be the same as Erlang's so I searched for "Elixir test generation", didn't
@@ -80,6 +84,12 @@ ex(4)> MyMacro.macro(an_arg) do
 ]
 ```
 
-What's interesting about the AST: it's just data! And we know how to manipulate data.
-If we take a close look at the `:do` it's then followed by a `:__block__`, which has a list
+# Doing it wrong? (Probably, but it's so lispy)
+
+What's nice about the AST: it's just data! And we know how to manipulate data.
+
+Reading about Elixir's macros I got the impression dealing with the AST is not how you're meant to
+think about it, but personally it just makes most intuitive sense to me, especially given how close
+to the code the AST is (almost a straight 1-to-1 mapping).
+
 
