@@ -15,7 +15,7 @@ def process_folder(path, tags, template_env):
         name = item.name
         if item.is_file():
             html_fname = None
-            if not (name.startswith(".") or name.lower().startswith("wip")):
+            if not (name.startswith(".")):
                 if name.endswith(".md"):
                     content, meta = process_markdown(item, tags, template_env)
                     html_fname = item.path[:-3] + ".html"
@@ -41,6 +41,8 @@ def process_listing(path, processed, template_env):
     pages = []
     page = []
     for key in sorted(processed.keys(), reverse=True):
+        if key.lower().startswith("wip"):
+            continue  # don't list WIP articles
         page.append(processed[key])
         if len(page) == 10:
             pages.append(page)
