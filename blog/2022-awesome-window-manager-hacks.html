@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<html class="dark">
+  <head>
+    <title>My Awesome AwesomeWM Hacks</title>
+    <meta name="viewport" content="width=device-width">
+    <style>
+      
+
+      :root{
+          --tile: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGQAAABkAgMAAAANjH3HAAAACVBMVEUaGhohISElJSUh9lebAAAB20lEQVRIx4XWuZXDMAwE0C0SAQtggIIYoAAEU+aKOHhYojTrYP2+QfOW/5QIJOih/q8HwF/pb3EX+UPIveYcQGgEHiu9hI+ihEc5Jz5KBIlRRRaJ1JtoSAl5Hw96hLB1/up1tnIXOck5jZQy+3iU2hAOKSH1JvwxHsp+5TLF5MOl1/MQXsVs1miXc+KDbYydyMeUgpPQreZ7fWidbNhkXNJSeAhc6qHmHD8AYovunYyEACWEbyIhNeB9fRrH3hFi0bGPLuEW7xCNaohw1vAlS805nfsrTspclB/hVdoqusg53eH7FWot+wjYpOViX8KbFFKTwlnzvj65P9H/vD0/hibYBGhPwlPO8TmxRsaxsNnrUmUXpNhirlJMPr6Hqq9k5Xn/8iYQHYIuQsWFC6Z87IOxLxHphSY4SpuiU87xJnJr5axfeRd+lnMExXpEWPpuZ1v7qZdNBOjiHzDREHX5fs5Zz9p6X0vVKbKKchlSl5rv+3p//FJ/PYvoKryI8vs+2G9lzRmnEKkh+BU8yDk515jDj/HAswu7CCz6U/Mxb/PnC9N41ndpU4hUU7JGk/C9PmP/M2xZYdvBW2PObyf1IUiIzoHmHW9yTncliYs9A9tVNppdShfgQaTLMf+j3X723tLeHgAAAABJRU5ErkJggg==);
+
+      }
+      html {
+          font-size: 16px;
+          line-height: 1.6em;
+          font-family: sans-serif;
+      }
+      html.dark {
+          background-image:
+              linear-gradient(#999, #999),
+              var(--tile);
+          background-blend-mode: multiply, normal;
+          background-attachment: fixed;
+          color: #fff;
+      }
+      html.light {
+          background-image:
+              linear-gradient(#DDD, #DDD),
+              var(--tile);
+          background-attachment: fixed;
+          background-blend-mode: screen, normal;
+          color: #000;
+      }
+      p, ul {
+          margin-top: 0.5em;
+          margin-bottom: 0.5em;
+      }
+      sup {
+          vertical-align: baseline;
+          position: relative;
+          top: -0.4em;
+      }
+      h1, h2, h3, h4, h5 {
+          font-weight: lighter;
+          font-style: italic;
+          font-family: serif;
+          margin-top: 1em;
+      }
+      html.dark :is(h1, h2, h3, h4, h5) {
+          color: #9baaff;
+      }
+      html.light :is(h1, h2, h3, h4, h5) {
+          color: #6b77aa;
+      }
+      a {
+          text-decoration: none;
+      }
+      .dark a {
+          color: #9baaff;;
+
+      }
+      a:hover {
+          text-decoration: underline;
+      }
+      .dark a:hover{
+          color: #fff;
+
+      }
+      .dark .darken {
+          display: none;
+      }
+      .light .lighten {
+          display: none;
+      }
+      .navbar {
+          font-size: 1.3em;
+          display: flex;
+          align-items: stretch;
+          padding-bottom: 10px;
+      }
+      .content-wrapper{
+          max-width: 1100px;
+      }
+      @media (min-width: 1250px) {
+          .flex-container {
+              display: flex;
+              align-items: stretch;
+          }
+          .content-wrapper{
+              flex-grow: 1;
+          }
+      }
+      @media (max-width: 900px) {
+          .content-wrapper{
+              max-width: 100%;
+          }
+      }
+      .postscript {
+          margin-top: 2.5em;
+          font-size: 12px;
+      }
+    
+.toc {
+    display: none;
+}
+.dark .toc a {
+     color: #999;
+}
+.light .toc a {
+     color: #555;
+}
+
+img {
+    width: 100%;
+    height: 100%;
+    object-fit: scale-down;
+}
+
+@media (min-width: 1250px){
+    .toc {
+        position: fixed;
+        top: 0;
+        right: 0;
+        max-width: 400px;
+        display: block;
+    }
+    .toc-flex{
+        flex-grow: 0;
+        flex-shrink: 0;
+        width: 400px;
+    }
+}
+.codehilite {
+    padding-top: 1px;
+    padding-right: 10px;
+    padding-bottom: 1px;
+    padding-left: 10px;
+    border-radius: 4px;
+    margin-bottom: 20px;
+}
+li>code, p>code {
+    padding: 2px;
+    border-radius: 4px;
+}
+.dark p>code, .dark li>code {
+    background: #2f1e2e;
+}
+.light p>codem .light li>code {
+    background: #fdf6e3;
+}
+
+  </style>
+  <script>
+  function toggle() {
+    var htmlEl = document.children[0];
+    console.log(htmlEl.className);
+    if(htmlEl.className === "dark") {
+      htmlEl.className = "light";
+    } else {
+      htmlEl.className = "dark";
+    }
+  }
+  </script>
+  
+  <link rel="stylesheet" href="../styles/code-dark.css">
+  <link rel="stylesheet" href="../styles/code-light.css">
+
+  </head>
+  <body>
+    
+      
+  <div class="toc">
+    
+      <ul>
+  <li><a href="#my-awesomewm-hacks">My AwesomeWM Hacks</a></li>
+  <li><a href="#restore-windows-to-their-original-screen-and-tag-once-display-is-reconnected">Restore windows to their original screen and tag, once display is reconnected</a></li>
+  <li><a href="#virtual-displays">Virtual displays</a>
+  <ul>
+    <li><a href="#adding-a-fake-screen">Adding a fake screen</a></li>
+    <li><a href="#removing-the-fake-screen">Removing the fake screen</a></li>
+    <li><a href="#dealing-with-displays-being-resized">Dealing with displays being resized</a></li>
+    <li><a href="#resizing-the-fake-screens">Resizing the fake screens</a></li>
+    <li><a href="#keybindings">Keybindings</a></li>
+  </ul></li>
+  <li><a href="#debugging-tips">Debugging tips</a>
+  <ul>
+    <li><a href="#print-debugging-and-capture-awesomewms-output">Print-debugging and capture AwesomeWM's output</a></li>
+    <li><a href="#dont-break-your-desktop-use-nested-x-while-hacking">Don't break your desktop, use nested X while hacking</a></li>
+  </ul></li>
+  <li><a href="#closing">Closing</a></li>
+</ul>
+
+    
+  </div>
+
+      <div class="flex-container">
+        <div class="content-wrapper">
+          <div class="navbar">
+            <span style="font-weight: 1.4em; flex-grow: 1">Radu Ciorba's corner of the internet</span>
+            <span style="flex-grow: 0">
+              <a onclick="toggle()" title="toggle light/dark">
+                <span class="lighten">&#9788;</span><span class="darken">&#9790;</span>
+              </a>
+              <a href="/blog/">Blog</a>
+              <a href="/projects/">Projects</a>
+              <a href="/">About</a>
+            </span>
+          </div>
+          
+  
+    <h1 id="my-awesomewm-hacks">My AwesomeWM Hacks</h1>
+
+<p>I've been using AwesomeWM as my daily driver for quite a number of years, but short of minor alterations, like a few custom shortcuts or setting different default layout for each tag, I never really did much to leverage its flexibility until now.</p>
+
+<p>I had a couple of itches I wanted to scratch:</p>
+
+<ul>
+<li>Dis-connecting and re-connecting displays are destructive operations: every window from every tag from the removed display, gets moved to the first tag of the remaining display, and when the display is reconnected, they don't "pop back into place".</li>
+<li>I got an ultra-wide monitor and I'd like to be able to split the display as if they were two virtual monitors, each with their own set of tags.</li>
+</ul>
+
+<p>In this post I will describe solutions to the above problems.</p>
+
+<p><strong>N.B.</strong> the code in this post was tested with AwesomeWM compiled from git master. Several things have changed since the 4.3 release, especially around handling how screens are added and removed, so if you'd like better multi-monitor support you probably should upgrade from 4.3.
+The code also assumes awesome is started with the "screen=off" option, see the <a href="https://awesomewm.org/apidoc/documentation/09-options.md.html">docs on modelines</a>.</p>
+
+<p><strong>Disclaimer:</strong> I'm no expert on AwesomeWM so take my descriptions its internal workings with a huge grain of salt, these are just my observations from a bit of hacking around.</p>
+
+<h1 id="restore-windows-to-their-original-screen-and-tag-once-display-is-reconnected">Restore windows to their original screen and tag, once display is reconnected</h1>
+
+<p><strong>N.B.</strong> The following "solution" assumes you have identically named tags across screens, and I haven't tested it for windows mapped to multiple tags.</p>
+
+<p>By default, disconnecting a screen moves all windows from all tags to the first tag of the other screen.
+I'd prefer a "merge" type behaviour, where the windows on the removed screen become secondary<sup>[<a href="#fn-1">1</a>]</sup> windows on the equivalent tag of the remaining screen. This works well for me, as I always have the same number of tags on both screens, and I use the same tag for the same activity (Emacs on one screen's tag 3, and a terminal with tests on the other screen's tag 3), so I would prefer my tests terminal to stay on tag 3 when I unplug a monitor. And finally, when I do re-connect the second screen, I'd like the tests terminal to move back to tag 3 of the re-connected monitor.</p>
+
+<p>This one turned out to be simple (once I had a better understanding of the WM events).</p>
+
+<ul>
+<li><code>tag.request::screen</code> is fired for each tag when a screen is about to be removed, giving it the opportunity to cleanup (find a new screen and tag) for every window. The default handler simply picks the first tag, but we're going to look for a tag with the same name, and also store the index of the current screen on the window object itself(the preferred screen), so we can restore it later.</li>
+<li><code>screen.added</code> - this was a trap. It felt like the "correct" event, but this is fired before the screen has been initialized (i.e. before tags were created for it), so restoring failed and it took me a while to figure out the cause.</li>
+<li><code>screen.request::desktop_decoration</code>. This one feels like a hack, as it seems intended for setting up the screen, but given the default handler for this initializes the tags, I added my window-restoring logic here, and it works like a charm.</li>
+</ul>
+
+<div class="codehilite"><pre><span></span><code><span class="c1">-- Handle screen being removed.</span>
+<span class="c1">-- We&#39;ll look for same tag names and move clients there, but preserve</span>
+<span class="c1">-- the &quot;desired_screen&quot; so we can move them back when it&#39;s connected.</span>
+<span class="n">tag</span><span class="p">.</span><span class="n">connect_signal</span><span class="p">(</span><span class="s2">&quot;request::screen&quot;</span><span class="p">,</span> <span class="kr">function</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
+    <span class="kd">local</span> <span class="n">fallback_tag</span> <span class="o">=</span> <span class="kc">nil</span>
+
+    <span class="c1">-- find tag with same name on any other screen</span>
+    <span class="kr">for</span> <span class="n">other_screen</span> <span class="kr">in</span> <span class="n">screen</span> <span class="kr">do</span>
+        <span class="kr">if</span> <span class="n">other_screen</span> <span class="o">~=</span> <span class="n">t</span><span class="p">.</span><span class="n">screen</span> <span class="kr">then</span>
+            <span class="n">fallback_tag</span> <span class="o">=</span> <span class="n">awful</span><span class="p">.</span><span class="n">tag</span><span class="p">.</span><span class="n">find_by_name</span><span class="p">(</span><span class="n">other_screen</span><span class="p">,</span> <span class="n">t</span><span class="p">.</span><span class="n">name</span><span class="p">)</span>
+            <span class="kr">if</span> <span class="n">fallback_tag</span> <span class="o">~=</span> <span class="kc">nil</span> <span class="kr">then</span>
+                <span class="kr">break</span>
+            <span class="kr">end</span>
+        <span class="kr">end</span>
+    <span class="kr">end</span>
+
+    <span class="c1">-- no tag with same name exists, use fallback</span>
+    <span class="kr">if</span> <span class="n">fallback_tag</span> <span class="o">==</span> <span class="kc">nil</span> <span class="kr">then</span>
+        <span class="n">fallback_tag</span> <span class="o">=</span> <span class="n">awful</span><span class="p">.</span><span class="n">tag</span><span class="p">.</span><span class="n">find_fallback</span><span class="p">()</span>
+    <span class="kr">end</span>
+
+    <span class="kr">if</span> <span class="ow">not</span> <span class="p">(</span><span class="n">fallback_tag</span> <span class="o">==</span> <span class="kc">nil</span><span class="p">)</span> <span class="kr">then</span>
+        <span class="n">clients</span> <span class="o">=</span> <span class="n">t</span><span class="p">:</span><span class="n">clients</span><span class="p">()</span>
+        <span class="kr">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">c</span> <span class="kr">in</span> <span class="nb">ipairs</span><span class="p">(</span><span class="n">clients</span><span class="p">)</span> <span class="kr">do</span>
+           <span class="n">c</span><span class="p">:</span><span class="n">move_to_tag</span><span class="p">(</span><span class="n">fallback_tag</span><span class="p">)</span>
+           <span class="c1">-- preserve info about which screen the window was originally on, so</span>
+           <span class="c1">-- we can restore it if the screen is reconnected.</span>
+           <span class="n">c</span><span class="p">.</span><span class="n">desired_screen</span> <span class="o">=</span> <span class="n">t</span><span class="p">.</span><span class="n">screen</span><span class="p">.</span><span class="n">index</span>
+        <span class="kr">end</span>
+    <span class="kr">end</span>
+<span class="kr">end</span><span class="p">)</span>
+</code></pre></div>
+
+<p>This is the code which will restore windows back to their desired screen:</p>
+
+<div class="codehilite"><pre><span></span><code><span class="kr">function</span> <span class="nf">restore_windows_to_desired_screen</span><span class="p">(</span><span class="n">new_screen</span><span class="p">)</span>
+    <span class="kr">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">c</span> <span class="kr">in</span> <span class="nb">ipairs</span><span class="p">(</span><span class="n">client</span><span class="p">.</span><span class="n">get</span><span class="p">())</span> <span class="kr">do</span>
+       <span class="kr">if</span> <span class="ow">not</span> <span class="p">(</span><span class="n">c</span><span class="p">.</span><span class="n">desired_screen</span> <span class="o">==</span> <span class="kc">nil</span><span class="p">)</span> <span class="kr">then</span>
+          <span class="n">tag_name</span> <span class="o">=</span> <span class="n">c</span><span class="p">.</span><span class="n">first_tag</span><span class="p">.</span><span class="n">name</span>
+          <span class="n">c</span><span class="p">:</span><span class="n">move_to_screen</span><span class="p">(</span><span class="n">c</span><span class="p">.</span><span class="n">desired_screen</span><span class="p">)</span>
+          <span class="n">tag</span> <span class="o">=</span> <span class="n">awful</span><span class="p">.</span><span class="n">tag</span><span class="p">.</span><span class="n">find_by_name</span><span class="p">(</span><span class="n">c</span><span class="p">.</span><span class="n">screen</span><span class="p">,</span> <span class="n">tag_name</span><span class="p">)</span>
+          <span class="kr">if</span> <span class="ow">not</span> <span class="p">(</span><span class="n">tag</span> <span class="o">==</span> <span class="kc">nil</span><span class="p">)</span> <span class="kr">then</span>
+             <span class="n">c</span><span class="p">:</span><span class="n">move_to_tag</span><span class="p">(</span><span class="n">tag</span><span class="p">)</span>
+          <span class="kr">end</span>
+          <span class="c1">-- now clear the &quot;desired_screen&quot;</span>
+          <span class="n">c</span><span class="p">.</span><span class="n">desired_screen</span> <span class="o">=</span> <span class="kc">nil</span>
+       <span class="kr">end</span>
+    <span class="kr">end</span>
+<span class="kr">end</span>
+</code></pre></div>
+
+<p>Now, we have to call <code>restore_windows_to_desired_screen</code>. In the default AwesomeWM config, we have a handler for <code>screen.request::desktop_decoration</code> and this is where everything is setup for the new screen (tags, the taglist widget, the tasklist widget, the top bar, etc). As our restore code looks for tags of the same name on the newly connected screen, we can only run it after we initialized the tags, so let's do just that:</p>
+
+<div class="codehilite"><pre><span></span><code><span class="n">screen</span><span class="p">.</span><span class="n">connect_signal</span><span class="p">(</span><span class="s2">&quot;request::desktop_decoration&quot;</span><span class="p">,</span> <span class="kr">function</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+    <span class="c1">-- Each screen has its own tag table.</span>
+    <span class="n">awful</span><span class="p">.</span><span class="n">tag</span><span class="p">({</span> <span class="s2">&quot;1&quot;</span><span class="p">,</span> <span class="s2">&quot;2&quot;</span><span class="p">,</span> <span class="s2">&quot;3&quot;</span><span class="p">,</span> <span class="s2">&quot;4&quot;</span><span class="p">,</span> <span class="s2">&quot;5&quot;</span><span class="p">,</span> <span class="s2">&quot;6&quot;</span><span class="p">,</span> <span class="s2">&quot;7&quot;</span><span class="p">,</span> <span class="s2">&quot;8&quot;</span><span class="p">,</span> <span class="s2">&quot;9&quot;</span> <span class="p">},</span> <span class="n">s</span><span class="p">,</span> <span class="n">awful</span><span class="p">.</span><span class="n">layout</span><span class="p">.</span><span class="n">suit</span><span class="p">.</span><span class="n">tile</span><span class="p">)</span>
+    <span class="c1">-- Call our restore function, now that tags are setup</span>
+    <span class="n">restore_windows_to_desired_screen</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+    <span class="p">...</span>
+</code></pre></div>
+
+<p>That's kind of it.</p>
+
+<p>Also, thanks to <a href="https://github.com/awesomeWM/awesome/issues/1382#issuecomment-430909577">bodograuman for sharing their window restoring code</a>, as it served as an inspiration and starting point for me.</p>
+
+<h1 id="virtual-displays">Virtual displays</h1>
+
+<p>More cool stuff: my ultra-wide monitor provides about as much screen real-estate as one and a half monitors. I've been able to tweak things to the point where I have 2 virtual screens with roughly a 3/4 and 1/4 split. I can also resize them on the fly and switch to a single screen layout easily. This is relatively easy to pull off given AwesomeWM offers: <a href="https://awesomewm.org/apidoc/core_components/screen.html#fake_add">fake_add</a>, <a href="https://awesomewm.org/apidoc/core_components/screen.html#fake_remove">fake_remove</a>, and <a href="https://awesomewm.org/apidoc/core_components/screen.html#fake_resize">fake_resize</a> out of the box.</p>
+
+<p>This is a great productivity booster for me:</p>
+
+<ul>
+<li>I tend to use the "second screen" when coding, to run tests as soon as I've changed the code.</li>
+<li>Sometimes I move a current call to the second screen, and use the "main screen" to look up relevant information. I find 2 virtual screens makes this a lot easier, as I can still use my regular window-manager flow (tile windows, jump between tags) on the "main screen" while the call stays in place on the "second".</li>
+</ul>
+
+<p>My workflow is not fancy: I want either the vanilla "each monitor == one screen" or "exactly one monitor == 2 screens" (what I use on the ultra-wide monitor 95% of the time). Also I want to be able to switch between the two.</p>
+
+<p>Here's what the split layout looks on a 3440x1440 display:
+<img src="img/2022-awesome-split.jpg" alt="split layout" /></p>
+
+<h2 id="adding-a-fake-screen">Adding a fake screen</h2>
+
+<p>Switching from a single screen to a split layout means resizing the one existing screen and adding a fake. The below code does a bit more than that, it also tracks "fakes" and the original dimensions of the "real" screen, and we will see later how we use that information when we handle removing the fake and returning to a non-split layout.</p>
+
+<div class="codehilite"><pre><span></span><code><span class="kd">local</span> <span class="kr">function</span> <span class="nf">wide_split_layout</span><span class="p">()</span>
+   <span class="kr">if</span> <span class="p">(</span><span class="n">screen</span><span class="p">.</span><span class="n">count</span><span class="p">()</span> <span class="o">~=</span> <span class="mi">1</span><span class="p">)</span> <span class="kr">then</span>
+      <span class="c1">-- A sanity check, so we don&#39;t split multiple times.</span>
+      <span class="n">debug</span><span class="p">(</span><span class="s2">&quot;more than 1 screen, bailing on wide_split_layout&quot;</span><span class="p">,</span> <span class="n">screen</span><span class="p">.</span><span class="n">count</span><span class="p">())</span>
+      <span class="kr">return</span>
+   <span class="kr">end</span>
+   <span class="kd">local</span> <span class="n">geo</span> <span class="o">=</span> <span class="n">screen</span><span class="p">[</span><span class="mi">1</span><span class="p">].</span><span class="n">geometry</span>
+   <span class="kd">local</span> <span class="n">new_width</span> <span class="o">=</span> <span class="nb">math.ceil</span><span class="p">(</span><span class="mi">3</span><span class="o">*</span><span class="n">geo</span><span class="p">.</span><span class="n">width</span><span class="o">/</span><span class="mi">4</span><span class="p">)</span> <span class="o">-</span> <span class="mi">30</span>  <span class="c1">-- personal sweet spot for main screen size</span>
+   <span class="kd">local</span> <span class="n">new_width2</span> <span class="o">=</span> <span class="n">geo</span><span class="p">.</span><span class="n">width</span> <span class="o">-</span> <span class="n">new_width</span>
+   <span class="kd">local</span> <span class="n">parent</span> <span class="o">=</span> <span class="n">screen</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+   <span class="n">parent</span><span class="p">.</span><span class="n">original_w</span> <span class="o">=</span> <span class="n">geo</span><span class="p">.</span><span class="n">width</span>
+   <span class="n">parent</span><span class="p">.</span><span class="n">original_h</span> <span class="o">=</span> <span class="n">geo</span><span class="p">.</span><span class="n">height</span>
+   <span class="n">parent</span><span class="p">:</span><span class="n">fake_resize</span><span class="p">(</span><span class="n">geo</span><span class="p">.</span><span class="n">x</span><span class="p">,</span> <span class="n">geo</span><span class="p">.</span><span class="n">y</span><span class="p">,</span> <span class="n">new_width</span><span class="p">,</span> <span class="n">geo</span><span class="p">.</span><span class="n">height</span><span class="p">)</span>
+   <span class="n">fake</span> <span class="o">=</span> <span class="n">screen</span><span class="p">.</span><span class="n">fake_add</span><span class="p">(</span><span class="n">geo</span><span class="p">.</span><span class="n">x</span> <span class="o">+</span> <span class="n">new_width</span><span class="p">,</span> <span class="n">geo</span><span class="p">.</span><span class="n">y</span><span class="p">,</span> <span class="n">new_width2</span><span class="p">,</span> <span class="n">geo</span><span class="p">.</span><span class="n">height</span><span class="p">)</span>
+   <span class="kr">if</span> <span class="p">(</span><span class="n">parent</span><span class="p">.</span><span class="n">fakes</span> <span class="o">==</span> <span class="kc">nil</span><span class="p">)</span> <span class="kr">then</span>
+      <span class="n">parent</span><span class="p">.</span><span class="n">fakes</span> <span class="o">=</span> <span class="p">{}</span>
+   <span class="kr">end</span>
+   <span class="n">parent</span><span class="p">.</span><span class="n">fakes</span><span class="p">[</span><span class="n">fake</span><span class="p">.</span><span class="n">index</span><span class="p">]</span> <span class="o">=</span> <span class="n">fake</span>
+   <span class="kr">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="kr">in</span> <span class="nb">pairs</span><span class="p">(</span><span class="n">fake</span><span class="p">.</span><span class="n">tags</span><span class="p">)</span> <span class="kr">do</span>
+      <span class="n">v</span><span class="p">.</span><span class="n">layout</span> <span class="o">=</span> <span class="n">awful</span><span class="p">.</span><span class="n">layout</span><span class="p">.</span><span class="n">suit</span><span class="p">.</span><span class="n">tile</span><span class="p">.</span><span class="n">bottom</span>
+   <span class="kr">end</span>
+   <span class="nb">collectgarbage</span><span class="p">(</span><span class="s1">&#39;collect&#39;</span><span class="p">)</span>
+<span class="kr">end</span>
+</code></pre></div>
+
+<h2 id="removing-the-fake-screen">Removing the fake screen</h2>
+
+<p>Now for switching back to the regular (non-split) layout. It's quite simple, we need to:</p>
+
+<ul>
+<li>look for "parent" screens and remove all their "fakes"</li>
+<li>resize the "parent" back to its original width</li>
+</ul>
+
+<div class="codehilite"><pre><span></span><code><span class="kd">local</span> <span class="kr">function</span> <span class="nf">non_wide_layout</span><span class="p">()</span>
+   <span class="kr">for</span> <span class="n">s</span> <span class="kr">in</span> <span class="n">screen</span> <span class="kr">do</span>
+      <span class="kr">if</span> <span class="n">s</span><span class="p">.</span><span class="n">fakes</span> <span class="kr">then</span>
+         <span class="kr">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">f</span> <span class="kr">in</span> <span class="nb">pairs</span><span class="p">(</span><span class="n">s</span><span class="p">.</span><span class="n">fakes</span><span class="p">)</span> <span class="kr">do</span>
+            <span class="n">f</span><span class="p">:</span><span class="n">fake_remove</span><span class="p">()</span>
+         <span class="kr">end</span>
+         <span class="n">s</span><span class="p">.</span><span class="n">fakes</span> <span class="o">=</span> <span class="kc">nil</span>
+
+         <span class="kd">local</span> <span class="n">geo</span> <span class="o">=</span> <span class="n">s</span><span class="p">.</span><span class="n">geometry</span>
+         <span class="n">s</span><span class="p">:</span><span class="n">fake_resize</span><span class="p">(</span><span class="n">geo</span><span class="p">.</span><span class="n">x</span><span class="p">,</span> <span class="n">geo</span><span class="p">.</span><span class="n">y</span><span class="p">,</span> <span class="n">s</span><span class="p">.</span><span class="n">original_w</span><span class="p">,</span> <span class="n">geo</span><span class="p">.</span><span class="n">height</span><span class="p">)</span>
+      <span class="kr">end</span>
+   <span class="kr">end</span>
+<span class="kr">end</span>
+</code></pre></div>
+
+<h2 id="dealing-with-displays-being-resized">Dealing with displays being resized</h2>
+
+<p>As an aside, handling X11 displays (which one is primary, changing resolutions, etc) isn't the responsibility of the window manager. I run xfsettingsd (from xfce4) and also have a few layouts scripts created using arandr, for those few times when plugging in a display doesn't "just work".</p>
+
+<p>Back to handling resize events. I'm not 100% sure how awesome numbers the screens or how it manages them. My observation has been that screen 1 is always my primary X11 monitor. </p>
+
+<p>Some examples:</p>
+
+<ul>
+<li>When I attach a display it becomes my new primary. While this looks like adding a new screen and moving stuff over to it, what actually happens is: screen 1 is moved to a new display and resized, and screen 2 is added. Similarly when I unplug the monitor: screen 2 gets removed, and screen 1 is moved to the other output and resized.</li>
+<li>With my ultra-wide I actually disable the laptop screen and use the external monitor exclusively. This means no screens are added or removed, and screen 1 is resized. When combined with restoring the split fake screen back to it's original size, I had a bug where my "go back to non-split layout" code would restore the size of the old display not the new one :)</li>
+</ul>
+
+<p>With this in mind we need to update the "original width" to match the resized display, and while we're at it let's try to be "clever" and go to either split or unsplit layout based on the new size of the display:</p>
+
+<div class="codehilite"><pre><span></span><code><span class="n">screen</span><span class="p">.</span><span class="n">connect_signal</span><span class="p">(</span>
+   <span class="s2">&quot;request::resize&quot;</span><span class="p">,</span>
+   <span class="kr">function</span><span class="p">(</span><span class="n">old</span><span class="p">,</span> <span class="n">new</span><span class="p">,</span> <span class="n">reason</span><span class="p">)</span>
+      <span class="c1">-- Update &quot;original size&quot; to match the resized display.</span>
+      <span class="kr">for</span> <span class="n">s</span> <span class="kr">in</span> <span class="n">screen</span> <span class="kr">do</span>
+         <span class="kr">if</span> <span class="p">(</span><span class="n">s</span><span class="p">.</span><span class="n">original_w</span> <span class="o">==</span> <span class="n">old</span><span class="p">.</span><span class="n">geometry</span><span class="p">.</span><span class="n">width</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">s</span><span class="p">.</span><span class="n">original_h</span> <span class="o">==</span> <span class="n">old</span><span class="p">.</span><span class="n">geometry</span><span class="p">.</span><span class="n">height</span><span class="p">)</span> <span class="kr">then</span>
+            <span class="n">s</span><span class="p">.</span><span class="n">original_w</span> <span class="o">=</span> <span class="n">new</span><span class="p">.</span><span class="n">geometry</span><span class="p">.</span><span class="n">width</span>
+            <span class="n">s</span><span class="p">.</span><span class="n">original_h</span> <span class="o">=</span> <span class="n">new</span><span class="p">.</span><span class="n">geometry</span><span class="p">.</span><span class="n">height</span>
+         <span class="kr">end</span>
+      <span class="kr">end</span>
+
+      <span class="c1">-- Some extra convenience: go to prefered layouts depending on the size.</span>
+      <span class="kr">if</span> <span class="n">new</span><span class="p">.</span><span class="n">geometry</span><span class="p">.</span><span class="n">width</span> <span class="o">==</span> <span class="mi">3440</span> <span class="kr">then</span>
+         <span class="c1">-- We seem to have connected the extrnal ultra-wide.</span>
+         <span class="n">wide_split_layout</span><span class="p">()</span>
+      <span class="kr">end</span>
+      <span class="kr">if</span> <span class="n">new</span><span class="p">.</span><span class="n">geometry</span><span class="p">.</span><span class="n">width</span> <span class="o">==</span> <span class="mi">1920</span> <span class="kr">then</span>
+         <span class="c1">-- We seem to have transitioned to the laptop screen.</span>
+         <span class="n">non_wide_layout</span><span class="p">()</span>
+      <span class="kr">end</span>
+<span class="kr">end</span><span class="p">)</span>
+</code></pre></div>
+
+<p>I admit tracking and updating the screen's original size this way feels quite hacky, but it works so I don't have the motivation to look for a more elegant solution :)</p>
+
+<h2 id="resizing-the-fake-screens">Resizing the fake screens</h2>
+
+<p>Now let's add the ability to adjust the size of the fake screens.</p>
+
+<div class="codehilite"><pre><span></span><code><span class="kd">local</span> <span class="kr">function</span> <span class="nf">resize_fake_screen</span><span class="p">(</span><span class="n">delta</span><span class="p">)</span>
+   <span class="kr">if</span> <span class="p">(</span><span class="n">screen</span><span class="p">.</span><span class="n">count</span><span class="p">()</span> <span class="o">~=</span> <span class="mi">2</span><span class="p">)</span> <span class="kr">then</span>
+      <span class="c1">-- sanity check</span>
+      <span class="kr">return</span>
+   <span class="kr">end</span>
+   <span class="kd">local</span> <span class="n">geo1</span> <span class="o">=</span> <span class="n">screen</span><span class="p">[</span><span class="mi">1</span><span class="p">].</span><span class="n">geometry</span>
+   <span class="kd">local</span> <span class="n">geo2</span> <span class="o">=</span> <span class="n">screen</span><span class="p">[</span><span class="mi">2</span><span class="p">].</span><span class="n">geometry</span>
+   <span class="n">screen</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span><span class="n">fake_resize</span><span class="p">(</span><span class="n">geo1</span><span class="p">.</span><span class="n">x</span><span class="p">,</span> <span class="n">geo1</span><span class="p">.</span><span class="n">y</span><span class="p">,</span> <span class="n">geo1</span><span class="p">.</span><span class="n">width</span><span class="o">+</span><span class="n">delta</span><span class="p">,</span> <span class="n">geo1</span><span class="p">.</span><span class="n">height</span><span class="p">)</span>
+   <span class="n">screen</span><span class="p">[</span><span class="mi">2</span><span class="p">]:</span><span class="n">fake_resize</span><span class="p">(</span><span class="n">geo2</span><span class="p">.</span><span class="n">x</span><span class="o">+</span><span class="n">delta</span><span class="p">,</span> <span class="n">geo2</span><span class="p">.</span><span class="n">y</span><span class="p">,</span> <span class="n">geo2</span><span class="p">.</span><span class="n">width</span><span class="o">-</span><span class="n">delta</span><span class="p">,</span> <span class="n">geo2</span><span class="p">.</span><span class="n">height</span><span class="p">)</span>
+<span class="kr">end</span>
+</code></pre></div>
+
+<h2 id="keybindings">Keybindings</h2>
+
+<p>And let's tie it all together with keybindings for the above. My keybindings are:</p>
+
+<ul>
+<li>F5 - make parent screen narrower and widen the side screen</li>
+<li>F6 - go to single screen layout</li>
+<li>F7 - go to split screen layout</li>
+<li>F8 - make parent screen wider and side screen narrower</li>
+</ul>
+
+<div class="codehilite"><pre><span></span><code><span class="n">globalkeys</span> <span class="o">=</span> <span class="n">gears</span><span class="p">.</span><span class="n">table</span><span class="p">.</span><span class="n">join</span><span class="p">(</span>
+    <span class="n">globalkeys</span><span class="p">,</span>
+    <span class="n">awful</span><span class="p">.</span><span class="n">key</span><span class="p">({</span> <span class="n">modkey</span><span class="p">,</span>           <span class="p">},</span> <span class="s2">&quot;#72&quot;</span><span class="p">,</span>   <span class="kr">function</span><span class="p">()</span> <span class="n">non_wide_layout</span><span class="p">()</span> <span class="kr">end</span><span class="p">,</span>
+              <span class="p">{</span><span class="n">description</span><span class="o">=</span><span class="s2">&quot;single screen layout&quot;</span><span class="p">,</span> <span class="n">group</span><span class="o">=</span><span class="s2">&quot;layouts&quot;</span><span class="p">}),</span>
+    <span class="n">awful</span><span class="p">.</span><span class="n">key</span><span class="p">({</span> <span class="n">modkey</span><span class="p">,</span>           <span class="p">},</span> <span class="s2">&quot;#73&quot;</span><span class="p">,</span>   <span class="kr">function</span><span class="p">()</span> <span class="n">wide_split_layout</span><span class="p">()</span> <span class="kr">end</span><span class="p">,</span>
+              <span class="p">{</span><span class="n">description</span><span class="o">=</span><span class="s2">&quot;wide screen split layout&quot;</span><span class="p">,</span> <span class="n">group</span><span class="o">=</span><span class="s2">&quot;layouts&quot;</span><span class="p">}),</span>
+    <span class="n">awful</span><span class="p">.</span><span class="n">key</span><span class="p">({</span> <span class="n">modkey</span><span class="p">,</span>           <span class="p">},</span> <span class="s2">&quot;#71&quot;</span><span class="p">,</span>   <span class="kr">function</span><span class="p">()</span> <span class="n">resize_fake_screen</span><span class="p">(</span><span class="o">-</span><span class="mi">15</span><span class="p">)</span> <span class="kr">end</span><span class="p">,</span>
+              <span class="p">{</span><span class="n">description</span><span class="o">=</span><span class="s2">&quot;resize screen -15&quot;</span><span class="p">,</span> <span class="n">group</span><span class="o">=</span><span class="s2">&quot;layouts&quot;</span><span class="p">}),</span>
+    <span class="n">awful</span><span class="p">.</span><span class="n">key</span><span class="p">({</span> <span class="n">modkey</span><span class="p">,</span>           <span class="p">},</span> <span class="s2">&quot;#74&quot;</span><span class="p">,</span>   <span class="kr">function</span><span class="p">()</span> <span class="n">resize_fake_screen</span><span class="p">(</span> <span class="mi">15</span><span class="p">)</span> <span class="kr">end</span><span class="p">,</span>
+              <span class="p">{</span><span class="n">description</span><span class="o">=</span><span class="s2">&quot;resize screen +15&quot;</span><span class="p">,</span> <span class="n">group</span><span class="o">=</span><span class="s2">&quot;layouts&quot;</span><span class="p">}),</span>
+<span class="p">)</span>
+</code></pre></div>
+
+<h1 id="debugging-tips">Debugging tips</h1>
+
+<h2 id="print-debugging-and-capture-awesomewms-output">Print-debugging and capture AwesomeWM's output</h2>
+
+<p>It took me some trial and error to get the code here working. I was asking myself questions such as "did I mess up tracking the desired screen when removing the screen, or did I mess up restoring the tag when a screen is added?". Being able to add some well placed prints helps you narrow it down.</p>
+
+<p>If you're using lightdm the .desktop file won't let you do output redirection, but you can create a wrapper script and exec that.</p>
+
+<p>Here's how my <code>/usr/share/xsessions/awesome.desktop</code> looks like:</p>
+
+<div class="codehilite"><pre><span></span><code><span class="k">[Desktop Entry]</span>
+<span class="na">Name</span><span class="o">=</span><span class="s">awesome</span>
+<span class="na">Comment</span><span class="o">=</span><span class="s">Highly configurable framework window manager</span>
+<span class="na">TryExec</span><span class="o">=</span><span class="s">awesome</span>
+<span class="na">Exec</span><span class="o">=</span><span class="s">awesome-dbg</span>
+<span class="na">Type</span><span class="o">=</span><span class="s">Application</span>
+<span class="na">Icon</span><span class="o">=</span><span class="s">/usr/share/pixmaps/awesome.xpm</span>
+<span class="na">Keywords</span><span class="o">=</span><span class="s">Window manager</span>
+</code></pre></div>
+
+<p>And <code>/usr/local/bin/awesome-dbg</code>, the wrapper script to do output redirection:</p>
+
+<div class="codehilite"><pre><span></span><code><span class="ch">#!/bin/sh</span>
+
+<span class="nb">exec</span> awesome <span class="s2">&quot;</span><span class="nv">$@</span><span class="s2">&quot;</span> &gt; ~/.awesome-dbg
+</code></pre></div>
+
+<p>Now you can sprinkle <code>print("text")</code> and <code>gears.debug.dump(obj, "text")</code> anywhere you see fit and tail <code>~/.awesome-dbg</code>.</p>
+
+<h2 id="dont-break-your-desktop-use-nested-x-while-hacking">Don't break your desktop, use nested X while hacking</h2>
+
+<p>In order to avoid breaking your config and being unable to use your computer, it's really nice to be able to start another instance of AwesomeWM while you hack away on the config. This is easy to pull of by using Xephyr to start a nested X session:</p>
+
+<div class="codehilite"><pre><span></span><code>Xephyr -ac -screen 3430x1380 :99 <span class="o">&amp;</span>
+<span class="k">set</span> -x DISPLAY :99
+<span class="c"># if you haven&#39;t embraced the fish shell yet:</span>
+<span class="c"># export DISPLAY=:99</span>
+awesome -c ~/path/to/rc.lua
+</code></pre></div>
+
+<h1 id="closing">Closing</h1>
+
+<p>Oh wow, I can't believe you made it this far! If you have thoughts or suggestions please share them on the <a href="https://www.reddit.com/r/awesomewm/comments/ubfjxo/restoring_windows_when_a_screen_is_reconnected/">reddit thread</a>.</p>
+
+<p>Also, my <a href="https://github.com/rciorba/misc/blob/master/awesome/rc.lua">full AwesomeWM config is on github</a>, but it's probably harder to read than to go through the code in this post.</p>
+
+<p><hr>
+Footnotes:</p>
+
+<p>[<a id="fn-1">1</a>] the AwesomeWM layouts and APIs still use a "master"/"slave" terminology, which nowadays might be considered... out of touch.</p>
+
+  
+  
+
+        </div>
+
+        
+  
+    <div class="toc-flex"></div>
+  
+
+      </div>
+
+    
+  </body>
+</html>
