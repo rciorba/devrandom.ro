@@ -2,10 +2,11 @@
 <meta charset="utf-8">
 <html class="dark">
   <head>
-    <title>Radu Ciorba</title>
+    <title>Quick howto: fix missing keyboard layout in Xfce settings.</title>
     <meta name="viewport" content="width=device-width">
     <style>
       
+
       :root{
           --tile: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGQAAABkAgMAAAANjH3HAAAACVBMVEUaGhohISElJSUh9lebAAAB20lEQVRIx4XWuZXDMAwE0C0SAQtggIIYoAAEU+aKOHhYojTrYP2+QfOW/5QIJOih/q8HwF/pb3EX+UPIveYcQGgEHiu9hI+ihEc5Jz5KBIlRRRaJ1JtoSAl5Hw96hLB1/up1tnIXOck5jZQy+3iU2hAOKSH1JvwxHsp+5TLF5MOl1/MQXsVs1miXc+KDbYydyMeUgpPQreZ7fWidbNhkXNJSeAhc6qHmHD8AYovunYyEACWEbyIhNeB9fRrH3hFi0bGPLuEW7xCNaohw1vAlS805nfsrTspclB/hVdoqusg53eH7FWot+wjYpOViX8KbFFKTwlnzvj65P9H/vD0/hibYBGhPwlPO8TmxRsaxsNnrUmUXpNhirlJMPr6Hqq9k5Xn/8iYQHYIuQsWFC6Z87IOxLxHphSY4SpuiU87xJnJr5axfeRd+lnMExXpEWPpuZ1v7qZdNBOjiHzDREHX5fs5Zz9p6X0vVKbKKchlSl5rv+3p//FJ/PYvoKryI8vs+2G9lzRmnEKkh+BU8yDk515jDj/HAswu7CCz6U/Mxb/PnC9N41ndpU4hUU7JGk/C9PmP/M2xZYdvBW2PObyf1IUiIzoHmHW9yTncliYs9A9tVNppdShfgQaTLMf+j3X723tLeHgAAAABJRU5ErkJggg==);
 
@@ -100,6 +101,55 @@
           font-size: 12px;
       }
     
+.toc {
+    display: none;
+}
+.dark .toc a {
+     color: #999;
+}
+.light .toc a {
+     color: #555;
+}
+
+img {
+    width: 100%;
+    height: 100%;
+    object-fit: scale-down;
+}
+
+@media (min-width: 1250px){
+    .toc {
+        position: fixed;
+        top: 0;
+        right: 0;
+        max-width: 400px;
+        display: block;
+    }
+    .toc-flex{
+        flex-grow: 0;
+        flex-shrink: 0;
+        width: 400px;
+    }
+}
+.codehilite {
+    padding-top: 1px;
+    padding-right: 10px;
+    padding-bottom: 1px;
+    padding-left: 10px;
+    border-radius: 4px;
+    margin-bottom: 20px;
+}
+li>code, p>code {
+    padding: 2px;
+    border-radius: 4px;
+}
+.dark p>code, .dark li>code {
+    background: #2f1e2e;
+}
+.light p>codem .light li>code {
+    background: #fdf6e3;
+}
+
   </style>
   <script>
   function toggle() {
@@ -113,12 +163,19 @@
   }
   </script>
   
-  
+  <link rel="stylesheet" href="../styles/code-dark.css">
+  <link rel="stylesheet" href="../styles/code-light.css">
+
   </head>
   <body>
     
       
-      
+  <div class="toc">
+    
+      None
+    
+  </div>
+
       <div class="flex-container">
         <div class="content-wrapper">
           <div class="navbar">
@@ -133,39 +190,65 @@
             </span>
           </div>
           
-  <div class="blog-list">
-    
-    <p>
-      <h2><a href="/./blog/2022-xfce-missing-keyboard-layout.html">Quick howto: fix missing keyboard layout in Xfce settings. - 24th of November, 2022</a></h2>
-      When setxkbmap lets you set layouts which aren&#39;t listed in Xfce&#39;s keyboard settings.
-    </p>
-    
-    <p>
-      <h2><a href="/./blog/2022-desk.html">My new desk setup - 24th of April, 2022</a></h2>
-      Thoughts and first impressions as I&#39;m diving in to Elixir.
-    </p>
-    
-    <p>
-      <h2><a href="/./blog/2022-awesome-window-manager-hacks.html">My Awesome AwesomeWM Hacks - 24th of April, 2022</a></h2>
-      Smoother handling of adding and removing monitors + virtual screens.
-    </p>
-    
-    <p>
-      <h2><a href="/./blog/2022-syncthing-and-an-odroid-my-personal-dropbox.html">My private &#34;cloud/backup&#34; setup. - 2th of March, 2022</a></h2>
-      A love letter to Syncthing.
-    </p>
-    
-    <p>
-      <h2><a href="/./blog/2019-03-learning-elixir.html">Elixir first impressions - 20th of March, 2019</a></h2>
-      Thoughts and first impressions as I&#39;m diving in to Elixir.
-    </p>
-    
-  </div>
+  
+    <p>This is not a deep-dive into how keyboard layouts are configured. This is just a "note to self" in case I ever wonder "how the hell did I fix that"?</p>
+
+<p>The problem: my prefered keyboard layout doesn't show up in Xfce's keyboard settings tool.
+<code>setxkbmap ro basic</code> works, but gets reset after a while.</p>
+
+<p>The solution: edit <code>/usr/share/X11/xkb/rules/evdev.xml</code>. Find the Romanian language section. On Xubuntu 22.04 it looks like this:</p>
+
+<div class="codehilite">
+<pre><span></span><code><span class="nt">&lt;layout&gt;</span>
+  <span class="nt">&lt;configItem&gt;</span>
+    <span class="nt">&lt;name&gt;</span>ro<span class="nt">&lt;/name&gt;</span>
+    <span class="cm">&lt;!-- Keyboard indicator for Romanian layouts --&gt;</span>
+    <span class="nt">&lt;shortDescription&gt;</span>ro<span class="nt">&lt;/shortDescription&gt;</span>
+    <span class="nt">&lt;description&gt;</span>Romanian<span class="nt">&lt;/description&gt;</span>
+    <span class="nt">&lt;languageList&gt;</span>
+      <span class="nt">&lt;iso639Id&gt;</span>ron<span class="nt">&lt;/iso639Id&gt;</span>
+    <span class="nt">&lt;/languageList&gt;</span>
+  <span class="nt">&lt;/configItem&gt;</span>
+  <span class="nt">&lt;variantList&gt;</span>
+    <span class="nt">&lt;variant&gt;</span>
+      <span class="nt">&lt;configItem&gt;</span>
+        <span class="nt">&lt;name&gt;</span>std<span class="nt">&lt;/name&gt;</span>
+        <span class="nt">&lt;description&gt;</span>Romanian (standard)<span class="nt">&lt;/description&gt;</span>
+      <span class="nt">&lt;/configItem&gt;</span>
+    <span class="nt">&lt;/variant&gt;</span>
+    <span class="nt">&lt;variant&gt;</span>
+      <span class="nt">&lt;configItem&gt;</span>
+        <span class="nt">&lt;name&gt;</span>winkeys<span class="nt">&lt;/name&gt;</span>
+        <span class="nt">&lt;description&gt;</span>Romanian (Windows)<span class="nt">&lt;/description&gt;</span>
+      <span class="nt">&lt;/configItem&gt;</span>
+    <span class="nt">&lt;/variant&gt;</span>
+  <span class="nt">&lt;/variantList&gt;</span>
+<span class="nt">&lt;/layout&gt;</span>
+</code></pre>
+</div>
+
+<p>Modify the <code>variantList</code> to include the following:</p>
+
+<div class="codehilite">
+<pre><span></span><code><span class="nt">&lt;variant&gt;</span>
+  <span class="nt">&lt;configItem&gt;</span>
+    <span class="nt">&lt;name&gt;</span>basic<span class="nt">&lt;/name&gt;</span>
+    <span class="nt">&lt;description&gt;</span>Romanian (basic)<span class="nt">&lt;/description&gt;</span>
+  <span class="nt">&lt;/configItem&gt;</span>
+<span class="nt">&lt;/variant&gt;</span>
+</code></pre>
+</div>
+
+<p>That's it. "Romanian (basic)" will now show up in the available layouts.</p>
+
+  
+  
 
         </div>
 
         
-        
+  
+
       </div>
 
     
