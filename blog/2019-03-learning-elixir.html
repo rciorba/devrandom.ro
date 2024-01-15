@@ -21,14 +21,12 @@
               linear-gradient(#999, #999),
               var(--tile);
           background-blend-mode: multiply, normal;
-          background-attachment: fixed;
           color: #fff;
       }
       html.light {
           background-image:
               linear-gradient(#DDD, #DDD),
               var(--tile);
-          background-attachment: fixed;
           background-blend-mode: screen, normal;
           color: #000;
       }
@@ -138,6 +136,7 @@ img {
     padding-left: 10px;
     border-radius: 4px;
     margin-bottom: 20px;
+    overflow: scroll;
 }
 li>code, p>code {
     padding: 2px;
@@ -234,29 +233,37 @@ operator <code>&amp;</code>, and how it can be used as shorthand for declaring a
 
 <p>An Elixir example of function capturing, to quickly make an anonymous function:</p>
 
-<div class="codehilite"><pre><span></span><code><span class="gp">iex(3)&gt; </span><span class="o">&amp;</span><span class="n">is_atom</span><span class="o">/</span><span class="mi">1</span>
+<div class="codehilite">
+<pre><span></span><code><span class="gp">iex(3)&gt; </span><span class="o">&amp;</span><span class="n">is_atom</span><span class="o">/</span><span class="mi">1</span><span class="w"></span>
 <span class="go">&amp;:erlang.is_atom/1</span>
-</code></pre></div>
+</code></pre>
+</div>
 
 <p>And the equivalent in Erlang:</p>
 
-<div class="codehilite"><pre><span></span><code><span class="mi">2</span><span class="o">&gt;</span> <span class="k">fun</span> <span class="nn">erlang</span><span class="p">:</span><span class="nb">is_atom</span><span class="o">/</span><span class="mi">1</span><span class="p">.</span>
-<span class="k">fun</span> <span class="nn">erlang</span><span class="p">:</span><span class="nb">is_atom</span><span class="o">/</span><span class="mi">1</span>
-</code></pre></div>
+<div class="codehilite">
+<pre><span></span><code><span class="mi">2</span><span class="o">&gt;</span><span class="w"> </span><span class="k">fun</span><span class="w"> </span><span class="nn">erlang</span><span class="p">:</span><span class="nb">is_atom</span><span class="o">/</span><span class="mi">1</span><span class="p">.</span><span class="w"></span>
+<span class="k">fun</span><span class="w"> </span><span class="nn">erlang</span><span class="p">:</span><span class="nb">is_atom</span><span class="o">/</span><span class="mi">1</span><span class="w"></span>
+</code></pre>
+</div>
 
 <p>In Elixir <code>&amp;</code> can also be used as a shortcut for creating anonymous functions.</p>
 
 <p>Here's an example of an annonymous function:</p>
 
-<div class="codehilite"><pre><span></span><code><span class="gp">iex(1)&gt; </span><span class="k">fn</span> <span class="p">(</span><span class="n">a</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">a</span> <span class="o">*</span> <span class="mi">2</span> <span class="k">end</span>
+<div class="codehilite">
+<pre><span></span><code><span class="gp">iex(1)&gt; </span><span class="k">fn</span><span class="w"> </span><span class="p">(</span><span class="n">a</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="k">end</span><span class="w"></span>
 <span class="go">#Function&lt;6.128620087/1 in :erl_eval.expr/5&gt;</span>
-</code></pre></div>
+</code></pre>
+</div>
 
 <p>And here's an equivalent using the <code>&amp;</code> shorthand:</p>
 
-<div class="codehilite"><pre><span></span><code><span class="gp">iex(2)&gt; </span><span class="o">&amp;</span><span class="p">(</span><span class="ni">&amp;1</span> <span class="o">*</span> <span class="mi">2</span><span class="p">)</span>
+<div class="codehilite">
+<pre><span></span><code><span class="gp">iex(2)&gt; </span><span class="o">&amp;</span><span class="p">(</span><span class="ni">&amp;1</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">2</span><span class="p">)</span><span class="w"></span>
 <span class="go">#Function&lt;6.128620087/1 in :erl_eval.expr/5&gt;</span>
-</code></pre></div>
+</code></pre>
+</div>
 
 <h1 id="the-good-stuff">The good stuff</h1>
 
@@ -281,11 +288,13 @@ embraces the binary string and makes the syntax less cumbersome.</p>
 
 <p>Binary strings no longer need 3 characters to open, and another 3 to close.</p>
 
-<div class="codehilite"><pre><span></span><code><span class="gp">iex(1)&gt; </span><span class="s2">&quot;a&quot;</span>
+<div class="codehilite">
+<pre><span></span><code><span class="gp">iex(1)&gt; </span><span class="s2">&quot;a&quot;</span><span class="w"></span>
 <span class="go">&quot;a&quot;</span>
-<span class="gp">iex(2)&gt; </span><span class="p">&lt;&lt;</span><span class="s2">&quot;a&quot;</span><span class="p">&gt;&gt;</span>
+<span class="gp">iex(2)&gt; </span><span class="p">&lt;&lt;</span><span class="s2">&quot;a&quot;</span><span class="p">&gt;&gt;</span><span class="w"></span>
 <span class="go">&quot;a&quot;</span>
-</code></pre></div>
+</code></pre>
+</div>
 
 <p><a href="https://elixir-lang.org/getting-started/basic-types.html#strings">Read more about Strings</a></p>
 
@@ -294,11 +303,13 @@ list of integers) is also available. In Elixir it's called a charlist.</p>
 
 <p>Charlists, classic Erlang strings:</p>
 
-<div class="codehilite"><pre><span></span><code><span class="gp">iex(3)&gt; </span><span class="s1">&#39;A&#39;</span>
+<div class="codehilite">
+<pre><span></span><code><span class="gp">iex(3)&gt; </span><span class="s1">&#39;A&#39;</span><span class="w"></span>
 <span class="go">&#39;A&#39;</span>
-<span class="gp">iex(4)&gt; </span><span class="p">[</span><span class="mi">65</span><span class="p">]</span>
+<span class="gp">iex(4)&gt; </span><span class="p">[</span><span class="mi">65</span><span class="p">]</span><span class="w"></span>
 <span class="go">&#39;A&#39;</span>
-</code></pre></div>
+</code></pre>
+</div>
 
 <p>The only problem I can see is that having both type of strings could be confusing for
 people who come to Elixir without knowing the history of Erlang, especially since it's
@@ -315,11 +326,13 @@ implements common operations like sort, filter, map, reduce, etc.</p>
 
 <p>Here's an example:</p>
 
-<div class="codehilite"><pre><span></span><code><span class="gp">iex(6)&gt; </span><span class="nc">Enum</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span>
-<span class="gp">...(6)&gt; </span>  <span class="nc">Enum</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="mi">0</span><span class="o">..</span><span class="mi">2</span><span class="p">,</span> <span class="o">&amp;</span><span class="p">(</span><span class="ni">&amp;1</span> <span class="o">*</span> <span class="mi">2</span><span class="p">))</span>
-<span class="gp">...(6)&gt; </span><span class="p">)</span>
+<div class="codehilite">
+<pre><span></span><code><span class="gp">iex(6)&gt; </span><span class="nc">Enum</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="w"></span>
+<span class="gp">...(6)&gt; </span><span class="w">  </span><span class="nc">Enum</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="mi">0</span><span class="o">..</span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="p">(</span><span class="ni">&amp;1</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">2</span><span class="p">))</span><span class="w"></span>
+<span class="gp">...(6)&gt; </span><span class="p">)</span><span class="w"></span>
 <span class="go">6</span>
-</code></pre></div>
+</code></pre>
+</div>
 
 <p>I can't get in to the details of this, because I've only skimmed the surface, but I like
 that there's a way to implement your own collections, that compose well with the rest of
@@ -331,9 +344,11 @@ the language.</p>
 Python's range, only you can't specify a custom step. They're efficient because only the
 start and end are stored in memory. Ranges are Enumerable.</p>
 
-<div class="codehilite"><pre><span></span><code><span class="gp">iex(10)&gt; </span><span class="mi">0</span><span class="o">..</span><span class="mi">9</span>
+<div class="codehilite">
+<pre><span></span><code><span class="gp">iex(10)&gt; </span><span class="mi">0</span><span class="o">..</span><span class="mi">9</span><span class="w"></span>
 <span class="go">0..9</span>
-</code></pre></div>
+</code></pre>
+</div>
 
 <h2 id="streams">Streams</h2>
 
@@ -350,30 +365,38 @@ double each number, then sum them.</p>
 
 <p>The following:</p>
 
-<div class="codehilite"><pre><span></span><code><span class="nc">Enum</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="mi">0</span><span class="o">..</span><span class="mi">2</span><span class="p">,</span> <span class="o">&amp;</span><span class="p">(</span><span class="ni">&amp;1</span> <span class="o">*</span> <span class="mi">2</span><span class="p">))</span> <span class="o">|&gt;</span> <span class="nc">Enum</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
-</code></pre></div>
+<div class="codehilite">
+<pre><span></span><code><span class="nc">Enum</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="mi">0</span><span class="o">..</span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="p">(</span><span class="ni">&amp;1</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">2</span><span class="p">))</span><span class="w"> </span><span class="o">|&gt;</span><span class="w"> </span><span class="nc">Enum</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="w"></span>
+</code></pre>
+</div>
 
 <p>is just syntactic sugar for:</p>
 
-<div class="codehilite"><pre><span></span><code><span class="nc">Enum</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span>
-    <span class="nc">Enum</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="mi">0</span><span class="o">..</span><span class="mi">2</span><span class="p">,</span> <span class="o">&amp;</span><span class="p">(</span><span class="ni">&amp;1</span> <span class="o">*</span> <span class="mi">2</span><span class="p">))</span>
-<span class="p">)</span>
-</code></pre></div>
+<div class="codehilite">
+<pre><span></span><code><span class="nc">Enum</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="w"></span>
+<span class="w">    </span><span class="nc">Enum</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="mi">0</span><span class="o">..</span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="p">(</span><span class="ni">&amp;1</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">2</span><span class="p">))</span><span class="w"></span>
+<span class="p">)</span><span class="w"></span>
+</code></pre>
+</div>
 
 <p>Let's have a closer look at <code>Enum.map</code>. It builds and returns a new list.</p>
 
-<div class="codehilite"><pre><span></span><code><span class="gp">iex(4)&gt; </span><span class="nc">Enum</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="mi">0</span><span class="o">..</span><span class="mi">2</span><span class="p">,</span> <span class="o">&amp;</span><span class="p">(</span><span class="ni">&amp;1</span> <span class="o">*</span> <span class="mi">2</span><span class="p">))</span>
+<div class="codehilite">
+<pre><span></span><code><span class="gp">iex(4)&gt; </span><span class="nc">Enum</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="mi">0</span><span class="o">..</span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="p">(</span><span class="ni">&amp;1</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">2</span><span class="p">))</span><span class="w"></span>
 <span class="go">[0, 2, 4]</span>
-</code></pre></div>
+</code></pre>
+</div>
 
 <p>Let's go back to our pipeline, and add <code>IO.inspect()</code> in the middle. It will echo anything
 passed to it, then return it, which is perfect for sneaking a peek at what's passing
 trough.</p>
 
-<div class="codehilite"><pre><span></span><code><span class="gp">iex(12)&gt; </span><span class="nc">Enum</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="mi">0</span><span class="o">..</span><span class="mi">2</span><span class="p">,</span> <span class="o">&amp;</span><span class="p">(</span><span class="ni">&amp;1</span> <span class="o">*</span> <span class="mi">2</span><span class="p">))</span> <span class="o">|&gt;</span> <span class="nc">IO</span><span class="o">.</span><span class="n">inspect</span><span class="p">()</span> <span class="o">|&gt;</span> <span class="nc">Enum</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+<div class="codehilite">
+<pre><span></span><code><span class="gp">iex(12)&gt; </span><span class="nc">Enum</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="mi">0</span><span class="o">..</span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="p">(</span><span class="ni">&amp;1</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">2</span><span class="p">))</span><span class="w"> </span><span class="o">|&gt;</span><span class="w"> </span><span class="nc">IO</span><span class="o">.</span><span class="n">inspect</span><span class="p">()</span><span class="w"> </span><span class="o">|&gt;</span><span class="w"> </span><span class="nc">Enum</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="w"></span>
 <span class="go">[0, 2, 4]</span>
 <span class="go">6</span>
-</code></pre></div>
+</code></pre>
+</div>
 
 <p>Looking at the full example, notice how <code>Enum.sum</code> is only called at the very end, once
 <code>Enum.map</code> has built a new list and returned it. Wouldn't it be nice if we didn't have to
@@ -383,28 +406,34 @@ keyword was one of the things that made me love Python when I first learned it).
 
 <p>OK back to Elixir. Let's look at using a Stream.</p>
 
-<div class="codehilite"><pre><span></span><code><span class="gp">iex(17)&gt; </span><span class="nc">Stream</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="mi">0</span><span class="o">..</span><span class="mi">2</span><span class="p">,</span> <span class="o">&amp;</span><span class="p">(</span><span class="ni">&amp;1</span> <span class="o">*</span> <span class="mi">2</span><span class="p">))</span>
+<div class="codehilite">
+<pre><span></span><code><span class="gp">iex(17)&gt; </span><span class="nc">Stream</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="mi">0</span><span class="o">..</span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="p">(</span><span class="ni">&amp;1</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">2</span><span class="p">))</span><span class="w"></span>
 <span class="go">#Stream&lt;[enum: 0..2, funs: [#Function&lt;49.131689479/1 in Stream.map/2&gt;]]&gt;</span>
-</code></pre></div>
+</code></pre>
+</div>
 
 <p>The Stream module provides tools to implement lazy composable data pipelines.
 Let's change our example to use Streams:</p>
 
-<div class="codehilite"><pre><span></span><code><span class="gp">iex(14)&gt; </span><span class="nc">Stream</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="mi">0</span><span class="o">..</span><span class="mi">2</span><span class="p">,</span> <span class="o">&amp;</span><span class="p">(</span><span class="ni">&amp;1</span><span class="o">*</span><span class="mi">2</span><span class="p">))</span> <span class="o">|&gt;</span> <span class="nc">IO</span><span class="o">.</span><span class="n">inspect</span><span class="p">()</span> <span class="o">|&gt;</span> <span class="nc">Enum</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+<div class="codehilite">
+<pre><span></span><code><span class="gp">iex(14)&gt; </span><span class="nc">Stream</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="mi">0</span><span class="o">..</span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="p">(</span><span class="ni">&amp;1</span><span class="o">*</span><span class="mi">2</span><span class="p">))</span><span class="w"> </span><span class="o">|&gt;</span><span class="w"> </span><span class="nc">IO</span><span class="o">.</span><span class="n">inspect</span><span class="p">()</span><span class="w"> </span><span class="o">|&gt;</span><span class="w"> </span><span class="nc">Enum</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="w"></span>
 <span class="go">#Stream&lt;[enum: 0..2, funs: [#Function&lt;49.131689479/1 in Stream.map/2&gt;]]&gt;</span>
 <span class="go">6</span>
-</code></pre></div>
+</code></pre>
+</div>
 
 <p>As you can see it produced the same result but we didn't see the intermediate list,
 instead we got a stream. It would be nice if we could inspect not the stream itself, but
 each item produced. For that we'll use Stream.map to apply IO.inspect to each element.</p>
 
-<div class="codehilite"><pre><span></span><code><span class="gp">iex(18)&gt; </span><span class="nc">Stream</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="mi">0</span><span class="o">..</span><span class="mi">2</span><span class="p">,</span> <span class="o">&amp;</span><span class="p">(</span><span class="ni">&amp;1</span><span class="o">*</span><span class="mi">2</span><span class="p">))</span> <span class="o">|&gt;</span> <span class="nc">Stream</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="o">&amp;</span><span class="nc">IO</span><span class="o">.</span><span class="n">inspect</span><span class="o">/</span><span class="mi">1</span><span class="p">)</span> <span class="o">|&gt;</span> <span class="nc">Enum</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+<div class="codehilite">
+<pre><span></span><code><span class="gp">iex(18)&gt; </span><span class="nc">Stream</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="mi">0</span><span class="o">..</span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="p">(</span><span class="ni">&amp;1</span><span class="o">*</span><span class="mi">2</span><span class="p">))</span><span class="w"> </span><span class="o">|&gt;</span><span class="w"> </span><span class="nc">Stream</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="o">&amp;</span><span class="nc">IO</span><span class="o">.</span><span class="n">inspect</span><span class="o">/</span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="o">|&gt;</span><span class="w"> </span><span class="nc">Enum</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="w"></span>
 <span class="go">0</span>
 <span class="go">2</span>
 <span class="go">4</span>
 <span class="go">6</span>
-</code></pre></div>
+</code></pre>
+</div>
 
 <p>And voila. I know it's a very simple example but hopefully it gave you a feel for how you
 can use Streams to process data.</p>
@@ -428,19 +457,21 @@ Now, while it might look like inheritance at first glance, it's actually macro e
 
 <p>Here's an example:</p>
 
-<div class="codehilite"><pre><span></span><code><span class="gp">iex(1)&gt; </span><span class="kd">defmodule</span> <span class="nc">MyServer</span> <span class="k">do</span>
-<span class="gp">...(1)&gt; </span>  <span class="kn">use</span> <span class="nc">GenServer</span>
-<span class="gp">...(1)&gt; </span>  <span class="kd">def</span> <span class="n">init</span><span class="p">(</span><span class="ss">:ok</span><span class="p">)</span> <span class="k">do</span>
-<span class="gp">...(1)&gt; </span>    <span class="p">{</span><span class="ss">:ok</span><span class="p">,</span> <span class="p">%{}}</span>
-<span class="gp">...(1)&gt; </span>  <span class="k">end</span>
-<span class="gp">...(1)&gt; </span><span class="k">end</span>
+<div class="codehilite">
+<pre><span></span><code><span class="gp">iex(1)&gt; </span><span class="kd">defmodule</span><span class="w"> </span><span class="nc">MyServer</span><span class="w"> </span><span class="k">do</span><span class="w"></span>
+<span class="gp">...(1)&gt; </span><span class="w">  </span><span class="kn">use</span><span class="w"> </span><span class="nc">GenServer</span><span class="w"></span>
+<span class="gp">...(1)&gt; </span><span class="w">  </span><span class="kd">def</span><span class="w"> </span><span class="n">init</span><span class="p">(</span><span class="ss">:ok</span><span class="p">)</span><span class="w"> </span><span class="k">do</span><span class="w"></span>
+<span class="gp">...(1)&gt; </span><span class="w">    </span><span class="p">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="p">%{}}</span><span class="w"></span>
+<span class="gp">...(1)&gt; </span><span class="w">  </span><span class="k">end</span><span class="w"></span>
+<span class="gp">...(1)&gt; </span><span class="k">end</span><span class="w"></span>
 <span class="go">{:module, MyServer,</span>
 <span class="go"> &lt;&lt;70, 79, 82, 49, 0, 0, 15, 32, 66, 69, 65, 77, 65, 116, 85, 56, 0, 0, 1, 152,</span>
 <span class="go">   0, 0, 0, 41, 15, 69, 108, 105, 120, 105, 114, 46, 77, 121, 83, 101, 114, 118,</span>
 <span class="go">   101, 114, 8, 95, 95, 105, 110, 102, 111, ...&gt;&gt;, {:init, 1}}</span>
-<span class="gp">iex(2)&gt; </span><span class="p">{</span><span class="ss">:ok</span><span class="p">,</span> <span class="n">pid</span><span class="p">}</span> <span class="o">=</span> <span class="nc">GenServer</span><span class="o">.</span><span class="n">start_link</span><span class="p">(</span><span class="nc">MyServer</span><span class="p">,</span> <span class="ss">:ok</span><span class="p">)</span>
+<span class="gp">iex(2)&gt; </span><span class="p">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="n">pid</span><span class="p">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">GenServer</span><span class="o">.</span><span class="n">start_link</span><span class="p">(</span><span class="nc">MyServer</span><span class="p">,</span><span class="w"> </span><span class="ss">:ok</span><span class="p">)</span><span class="w"></span>
 <span class="go">{:ok, #PID&lt;0.119.0&gt;}</span>
-</code></pre></div>
+</code></pre>
+</div>
 
 <h1 id="the-stuff-im-not-sure-about">The stuff I'm not sure about</h1>
 
@@ -449,43 +480,53 @@ Now, while it might look like inheritance at first glance, it's actually macro e
 <p>In Elixir, unlike in Erlang, you can rebind variables. If you've programmed Erlang before,
 the following code might look odd.</p>
 
-<div class="codehilite"><pre><span></span><code><span class="gp">iex(5)&gt; </span><span class="p">{</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">}</span> <span class="o">=</span> <span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">}</span>
+<div class="codehilite">
+<pre><span></span><code><span class="gp">iex(5)&gt; </span><span class="p">{</span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="n">b</span><span class="p">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">}</span><span class="w"></span>
 <span class="go">{1, 2}</span>
 
-<span class="gp">iex(6)&gt; </span><span class="p">{</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">}</span>
+<span class="gp">iex(6)&gt; </span><span class="p">{</span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="n">b</span><span class="p">}</span><span class="w"></span>
 <span class="go">{1, 2}</span>
 
-<span class="gp">iex(7)&gt; </span><span class="p">{</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">}</span> <span class="o">=</span> <span class="p">{</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">}</span>
+<span class="gp">iex(7)&gt; </span><span class="p">{</span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="n">b</span><span class="p">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">}</span><span class="w"></span>
 <span class="go">{2, 2}</span>
 
-<span class="gp">iex(8)&gt; </span><span class="n">a</span>
+<span class="gp">iex(8)&gt; </span><span class="n">a</span><span class="w"></span>
 <span class="go">2</span>
-</code></pre></div>
+</code></pre>
+</div>
 
 <p>Pattern matching is much like in Erlang. For example, this can't match because the
 variable <code>a</code> would be bound to two distinct values:</p>
 
-<div class="codehilite"><pre><span></span><code><span class="gp">iex(1)&gt; </span><span class="p">{</span><span class="n">a</span><span class="p">,</span> <span class="n">a</span><span class="p">}</span> <span class="o">=</span> <span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">}</span>
-<span class="gr">** (MatchError) no match of right hand side value: {1, 2}</span>
-</code></pre></div>
+<div class="codehilite">
+<pre><span></span><code><span class="gp">iex(1)&gt; </span><span class="p">{</span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="n">a</span><span class="p">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">}</span><span class="w"></span>
+<span class="gr">** (MatchError) no match of right hand side value: {1, 2}</span><span class="w"></span>
+</code></pre>
+</div>
 
 <p>This however is OK.</p>
 
-<div class="codehilite"><pre><span></span><code><span class="gp">iex(1)&gt; </span><span class="p">{</span><span class="n">a</span><span class="p">,</span> <span class="n">a</span><span class="p">}</span> <span class="o">=</span> <span class="p">{</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">}</span>
-</code></pre></div>
+<div class="codehilite">
+<pre><span></span><code><span class="gp">iex(1)&gt; </span><span class="p">{</span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="n">a</span><span class="p">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">}</span><span class="w"></span>
+</code></pre>
+</div>
 
 <p>To avoid rebinding a variable you must use the pin operator <code>^</code>.</p>
 
 <p>This attempts to match a and leaves b to be (re)bound.</p>
 
-<div class="codehilite"><pre><span></span><code><span class="gp">iex(1)&gt; </span><span class="p">{</span><span class="o">^</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">}</span> <span class="o">=</span> <span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">}</span>
-</code></pre></div>
+<div class="codehilite">
+<pre><span></span><code><span class="gp">iex(1)&gt; </span><span class="p">{</span><span class="o">^</span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="n">b</span><span class="p">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">}</span><span class="w"></span>
+</code></pre>
+</div>
 
 <p>Also, just like Erlang, anything on the right hand side will never be bound, only
 matched. So the following will never bind a or b, instead it will attempt a match:</p>
 
-<div class="codehilite"><pre><span></span><code><span class="gp">iex(1)&gt; </span><span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">}</span> <span class="o">=</span> <span class="p">{</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">}</span>
-</code></pre></div>
+<div class="codehilite">
+<pre><span></span><code><span class="gp">iex(1)&gt; </span><span class="p">{</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="n">b</span><span class="p">}</span><span class="w"></span>
+</code></pre>
+</div>
 
 <p>The downside for Erlang's match-unless-bound is you need to know which variables are
 already bound. Elixir's pin operator is more explicit.</p>
@@ -500,21 +541,23 @@ you type a capitalized word, because of another feature called Aliasing, you get
 
 <p>Elixir atoms:</p>
 
-<div class="codehilite"><pre><span></span><code><span class="gp">iex(1)&gt; </span><span class="n">is_atom</span><span class="p">(</span><span class="ss">:abc</span><span class="p">)</span>
+<div class="codehilite">
+<pre><span></span><code><span class="gp">iex(1)&gt; </span><span class="n">is_atom</span><span class="p">(</span><span class="ss">:abc</span><span class="p">)</span><span class="w"></span>
 <span class="go">true</span>
 
-<span class="gp">iex(2)&gt; </span><span class="n">to_string</span><span class="p">(</span><span class="ss">:abc</span><span class="p">)</span>
+<span class="gp">iex(2)&gt; </span><span class="n">to_string</span><span class="p">(</span><span class="ss">:abc</span><span class="p">)</span><span class="w"></span>
 <span class="go">&quot;abc&quot;</span>
 
-<span class="gp">iex(3)&gt; </span><span class="n">is_atom</span><span class="p">(</span><span class="nc">Abc</span><span class="p">)</span>
+<span class="gp">iex(3)&gt; </span><span class="n">is_atom</span><span class="p">(</span><span class="nc">Abc</span><span class="p">)</span><span class="w"></span>
 <span class="go">true</span>
 
-<span class="gp">iex(4)&gt; </span><span class="nc">Abc</span>
+<span class="gp">iex(4)&gt; </span><span class="nc">Abc</span><span class="w"></span>
 <span class="go">Abc</span>
 
-<span class="gp">iex(5)&gt; </span><span class="n">to_string</span><span class="p">(</span><span class="nc">Abc</span><span class="p">)</span>
+<span class="gp">iex(5)&gt; </span><span class="n">to_string</span><span class="p">(</span><span class="nc">Abc</span><span class="p">)</span><span class="w"></span>
 <span class="go">&quot;Elixir.Abc&quot;</span>
-</code></pre></div>
+</code></pre>
+</div>
 
 <p>I'd file this as a superficial difference however it adds one small problem, variables can
 now potentially shadow functions. So when you write <code>is_number(1)</code> are you calling
