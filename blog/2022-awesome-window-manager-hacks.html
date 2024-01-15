@@ -21,14 +21,12 @@
               linear-gradient(#999, #999),
               var(--tile);
           background-blend-mode: multiply, normal;
-          background-attachment: fixed;
           color: #fff;
       }
       html.light {
           background-image:
               linear-gradient(#DDD, #DDD),
               var(--tile);
-          background-attachment: fixed;
           background-blend-mode: screen, normal;
           color: #000;
       }
@@ -138,6 +136,7 @@ img {
     padding-left: 10px;
     border-radius: 4px;
     margin-bottom: 20px;
+    overflow: scroll;
 }
 li>code, p>code {
     padding: 2px;
@@ -242,7 +241,8 @@ I'd prefer a "merge" type behaviour, where the windows on the removed screen bec
 <li><code>screen.request::desktop_decoration</code>. This one feels like a hack, as it seems intended for setting up the screen, but given the default handler for this initializes the tags, I added my window-restoring logic here, and it works like a charm.</li>
 </ul>
 
-<div class="codehilite"><pre><span></span><code><span class="c1">-- Handle screen being removed.</span>
+<div class="codehilite">
+<pre><span></span><code><span class="c1">-- Handle screen being removed.</span>
 <span class="c1">-- We&#39;ll look for same tag names and move clients there, but preserve</span>
 <span class="c1">-- the &quot;desired_screen&quot; so we can move them back when it&#39;s connected.</span>
 <span class="n">tag</span><span class="p">.</span><span class="n">connect_signal</span><span class="p">(</span><span class="s2">&quot;request::screen&quot;</span><span class="p">,</span> <span class="kr">function</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
@@ -273,11 +273,13 @@ I'd prefer a "merge" type behaviour, where the windows on the removed screen bec
         <span class="kr">end</span>
     <span class="kr">end</span>
 <span class="kr">end</span><span class="p">)</span>
-</code></pre></div>
+</code></pre>
+</div>
 
 <p>This is the code which will restore windows back to their desired screen:</p>
 
-<div class="codehilite"><pre><span></span><code><span class="kr">function</span> <span class="nf">restore_windows_to_desired_screen</span><span class="p">(</span><span class="n">new_screen</span><span class="p">)</span>
+<div class="codehilite">
+<pre><span></span><code><span class="kr">function</span> <span class="nf">restore_windows_to_desired_screen</span><span class="p">(</span><span class="n">new_screen</span><span class="p">)</span>
     <span class="kr">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">c</span> <span class="kr">in</span> <span class="nb">ipairs</span><span class="p">(</span><span class="n">client</span><span class="p">.</span><span class="n">get</span><span class="p">())</span> <span class="kr">do</span>
        <span class="kr">if</span> <span class="ow">not</span> <span class="p">(</span><span class="n">c</span><span class="p">.</span><span class="n">desired_screen</span> <span class="o">==</span> <span class="kc">nil</span><span class="p">)</span> <span class="kr">then</span>
           <span class="n">tag_name</span> <span class="o">=</span> <span class="n">c</span><span class="p">.</span><span class="n">first_tag</span><span class="p">.</span><span class="n">name</span>
@@ -291,17 +293,20 @@ I'd prefer a "merge" type behaviour, where the windows on the removed screen bec
        <span class="kr">end</span>
     <span class="kr">end</span>
 <span class="kr">end</span>
-</code></pre></div>
+</code></pre>
+</div>
 
 <p>Now, we have to call <code>restore_windows_to_desired_screen</code>. In the default AwesomeWM config, we have a handler for <code>screen.request::desktop_decoration</code> and this is where everything is setup for the new screen (tags, the taglist widget, the tasklist widget, the top bar, etc). As our restore code looks for tags of the same name on the newly connected screen, we can only run it after we initialized the tags, so let's do just that:</p>
 
-<div class="codehilite"><pre><span></span><code><span class="n">screen</span><span class="p">.</span><span class="n">connect_signal</span><span class="p">(</span><span class="s2">&quot;request::desktop_decoration&quot;</span><span class="p">,</span> <span class="kr">function</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+<div class="codehilite">
+<pre><span></span><code><span class="n">screen</span><span class="p">.</span><span class="n">connect_signal</span><span class="p">(</span><span class="s2">&quot;request::desktop_decoration&quot;</span><span class="p">,</span> <span class="kr">function</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
     <span class="c1">-- Each screen has its own tag table.</span>
     <span class="n">awful</span><span class="p">.</span><span class="n">tag</span><span class="p">({</span> <span class="s2">&quot;1&quot;</span><span class="p">,</span> <span class="s2">&quot;2&quot;</span><span class="p">,</span> <span class="s2">&quot;3&quot;</span><span class="p">,</span> <span class="s2">&quot;4&quot;</span><span class="p">,</span> <span class="s2">&quot;5&quot;</span><span class="p">,</span> <span class="s2">&quot;6&quot;</span><span class="p">,</span> <span class="s2">&quot;7&quot;</span><span class="p">,</span> <span class="s2">&quot;8&quot;</span><span class="p">,</span> <span class="s2">&quot;9&quot;</span> <span class="p">},</span> <span class="n">s</span><span class="p">,</span> <span class="n">awful</span><span class="p">.</span><span class="n">layout</span><span class="p">.</span><span class="n">suit</span><span class="p">.</span><span class="n">tile</span><span class="p">)</span>
     <span class="c1">-- Call our restore function, now that tags are setup</span>
     <span class="n">restore_windows_to_desired_screen</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
     <span class="p">...</span>
-</code></pre></div>
+</code></pre>
+</div>
 
 <p>That's kind of it.</p>
 
@@ -327,7 +332,8 @@ I'd prefer a "merge" type behaviour, where the windows on the removed screen bec
 
 <p>Switching from a single screen to a split layout means resizing the one existing screen and adding a fake. The below code does a bit more than that, it also tracks "fakes" and the original dimensions of the "real" screen, and we will see later how we use that information when we handle removing the fake and returning to a non-split layout.</p>
 
-<div class="codehilite"><pre><span></span><code><span class="kd">local</span> <span class="kr">function</span> <span class="nf">wide_split_layout</span><span class="p">()</span>
+<div class="codehilite">
+<pre><span></span><code><span class="kd">local</span> <span class="kr">function</span> <span class="nf">wide_split_layout</span><span class="p">()</span>
    <span class="kr">if</span> <span class="p">(</span><span class="n">screen</span><span class="p">.</span><span class="n">count</span><span class="p">()</span> <span class="o">~=</span> <span class="mi">1</span><span class="p">)</span> <span class="kr">then</span>
       <span class="c1">-- A sanity check, so we don&#39;t split multiple times.</span>
       <span class="n">debug</span><span class="p">(</span><span class="s2">&quot;more than 1 screen, bailing on wide_split_layout&quot;</span><span class="p">,</span> <span class="n">screen</span><span class="p">.</span><span class="n">count</span><span class="p">())</span>
@@ -350,7 +356,8 @@ I'd prefer a "merge" type behaviour, where the windows on the removed screen bec
    <span class="kr">end</span>
    <span class="nb">collectgarbage</span><span class="p">(</span><span class="s1">&#39;collect&#39;</span><span class="p">)</span>
 <span class="kr">end</span>
-</code></pre></div>
+</code></pre>
+</div>
 
 <h2 id="removing-the-fake-screen">Removing the fake screen</h2>
 
@@ -361,7 +368,8 @@ I'd prefer a "merge" type behaviour, where the windows on the removed screen bec
 <li>resize the "parent" back to its original width</li>
 </ul>
 
-<div class="codehilite"><pre><span></span><code><span class="kd">local</span> <span class="kr">function</span> <span class="nf">non_wide_layout</span><span class="p">()</span>
+<div class="codehilite">
+<pre><span></span><code><span class="kd">local</span> <span class="kr">function</span> <span class="nf">non_wide_layout</span><span class="p">()</span>
    <span class="kr">for</span> <span class="n">s</span> <span class="kr">in</span> <span class="n">screen</span> <span class="kr">do</span>
       <span class="kr">if</span> <span class="n">s</span><span class="p">.</span><span class="n">fakes</span> <span class="kr">then</span>
          <span class="kr">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">f</span> <span class="kr">in</span> <span class="nb">pairs</span><span class="p">(</span><span class="n">s</span><span class="p">.</span><span class="n">fakes</span><span class="p">)</span> <span class="kr">do</span>
@@ -374,7 +382,8 @@ I'd prefer a "merge" type behaviour, where the windows on the removed screen bec
       <span class="kr">end</span>
    <span class="kr">end</span>
 <span class="kr">end</span>
-</code></pre></div>
+</code></pre>
+</div>
 
 <h2 id="dealing-with-displays-being-resized">Dealing with displays being resized</h2>
 
@@ -391,7 +400,8 @@ I'd prefer a "merge" type behaviour, where the windows on the removed screen bec
 
 <p>With this in mind we need to update the "original width" to match the resized display, and while we're at it let's try to be "clever" and go to either split or unsplit layout based on the new size of the display:</p>
 
-<div class="codehilite"><pre><span></span><code><span class="n">screen</span><span class="p">.</span><span class="n">connect_signal</span><span class="p">(</span>
+<div class="codehilite">
+<pre><span></span><code><span class="n">screen</span><span class="p">.</span><span class="n">connect_signal</span><span class="p">(</span>
    <span class="s2">&quot;request::resize&quot;</span><span class="p">,</span>
    <span class="kr">function</span><span class="p">(</span><span class="n">old</span><span class="p">,</span> <span class="n">new</span><span class="p">,</span> <span class="n">reason</span><span class="p">)</span>
       <span class="c1">-- Update &quot;original size&quot; to match the resized display.</span>
@@ -412,7 +422,8 @@ I'd prefer a "merge" type behaviour, where the windows on the removed screen bec
          <span class="n">non_wide_layout</span><span class="p">()</span>
       <span class="kr">end</span>
 <span class="kr">end</span><span class="p">)</span>
-</code></pre></div>
+</code></pre>
+</div>
 
 <p>I admit tracking and updating the screen's original size this way feels quite hacky, but it works so I don't have the motivation to look for a more elegant solution :)</p>
 
@@ -420,7 +431,8 @@ I'd prefer a "merge" type behaviour, where the windows on the removed screen bec
 
 <p>Now let's add the ability to adjust the size of the fake screens.</p>
 
-<div class="codehilite"><pre><span></span><code><span class="kd">local</span> <span class="kr">function</span> <span class="nf">resize_fake_screen</span><span class="p">(</span><span class="n">delta</span><span class="p">)</span>
+<div class="codehilite">
+<pre><span></span><code><span class="kd">local</span> <span class="kr">function</span> <span class="nf">resize_fake_screen</span><span class="p">(</span><span class="n">delta</span><span class="p">)</span>
    <span class="kr">if</span> <span class="p">(</span><span class="n">screen</span><span class="p">.</span><span class="n">count</span><span class="p">()</span> <span class="o">~=</span> <span class="mi">2</span><span class="p">)</span> <span class="kr">then</span>
       <span class="c1">-- sanity check</span>
       <span class="kr">return</span>
@@ -430,7 +442,8 @@ I'd prefer a "merge" type behaviour, where the windows on the removed screen bec
    <span class="n">screen</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span><span class="n">fake_resize</span><span class="p">(</span><span class="n">geo1</span><span class="p">.</span><span class="n">x</span><span class="p">,</span> <span class="n">geo1</span><span class="p">.</span><span class="n">y</span><span class="p">,</span> <span class="n">geo1</span><span class="p">.</span><span class="n">width</span><span class="o">+</span><span class="n">delta</span><span class="p">,</span> <span class="n">geo1</span><span class="p">.</span><span class="n">height</span><span class="p">)</span>
    <span class="n">screen</span><span class="p">[</span><span class="mi">2</span><span class="p">]:</span><span class="n">fake_resize</span><span class="p">(</span><span class="n">geo2</span><span class="p">.</span><span class="n">x</span><span class="o">+</span><span class="n">delta</span><span class="p">,</span> <span class="n">geo2</span><span class="p">.</span><span class="n">y</span><span class="p">,</span> <span class="n">geo2</span><span class="p">.</span><span class="n">width</span><span class="o">-</span><span class="n">delta</span><span class="p">,</span> <span class="n">geo2</span><span class="p">.</span><span class="n">height</span><span class="p">)</span>
 <span class="kr">end</span>
-</code></pre></div>
+</code></pre>
+</div>
 
 <h2 id="keybindings">Keybindings</h2>
 
@@ -443,7 +456,8 @@ I'd prefer a "merge" type behaviour, where the windows on the removed screen bec
 <li>F8 - make parent screen wider and side screen narrower</li>
 </ul>
 
-<div class="codehilite"><pre><span></span><code><span class="n">globalkeys</span> <span class="o">=</span> <span class="n">gears</span><span class="p">.</span><span class="n">table</span><span class="p">.</span><span class="n">join</span><span class="p">(</span>
+<div class="codehilite">
+<pre><span></span><code><span class="n">globalkeys</span> <span class="o">=</span> <span class="n">gears</span><span class="p">.</span><span class="n">table</span><span class="p">.</span><span class="n">join</span><span class="p">(</span>
     <span class="n">globalkeys</span><span class="p">,</span>
     <span class="n">awful</span><span class="p">.</span><span class="n">key</span><span class="p">({</span> <span class="n">modkey</span><span class="p">,</span>           <span class="p">},</span> <span class="s2">&quot;#72&quot;</span><span class="p">,</span>   <span class="kr">function</span><span class="p">()</span> <span class="n">non_wide_layout</span><span class="p">()</span> <span class="kr">end</span><span class="p">,</span>
               <span class="p">{</span><span class="n">description</span><span class="o">=</span><span class="s2">&quot;single screen layout&quot;</span><span class="p">,</span> <span class="n">group</span><span class="o">=</span><span class="s2">&quot;layouts&quot;</span><span class="p">}),</span>
@@ -454,7 +468,8 @@ I'd prefer a "merge" type behaviour, where the windows on the removed screen bec
     <span class="n">awful</span><span class="p">.</span><span class="n">key</span><span class="p">({</span> <span class="n">modkey</span><span class="p">,</span>           <span class="p">},</span> <span class="s2">&quot;#74&quot;</span><span class="p">,</span>   <span class="kr">function</span><span class="p">()</span> <span class="n">resize_fake_screen</span><span class="p">(</span> <span class="mi">15</span><span class="p">)</span> <span class="kr">end</span><span class="p">,</span>
               <span class="p">{</span><span class="n">description</span><span class="o">=</span><span class="s2">&quot;resize screen +15&quot;</span><span class="p">,</span> <span class="n">group</span><span class="o">=</span><span class="s2">&quot;layouts&quot;</span><span class="p">}),</span>
 <span class="p">)</span>
-</code></pre></div>
+</code></pre>
+</div>
 
 <h1 id="debugging-tips">Debugging tips</h1>
 
@@ -466,22 +481,26 @@ I'd prefer a "merge" type behaviour, where the windows on the removed screen bec
 
 <p>Here's how my <code>/usr/share/xsessions/awesome.desktop</code> looks like:</p>
 
-<div class="codehilite"><pre><span></span><code><span class="k">[Desktop Entry]</span>
-<span class="na">Name</span><span class="o">=</span><span class="s">awesome</span>
-<span class="na">Comment</span><span class="o">=</span><span class="s">Highly configurable framework window manager</span>
-<span class="na">TryExec</span><span class="o">=</span><span class="s">awesome</span>
-<span class="na">Exec</span><span class="o">=</span><span class="s">awesome-dbg</span>
-<span class="na">Type</span><span class="o">=</span><span class="s">Application</span>
-<span class="na">Icon</span><span class="o">=</span><span class="s">/usr/share/pixmaps/awesome.xpm</span>
-<span class="na">Keywords</span><span class="o">=</span><span class="s">Window manager</span>
-</code></pre></div>
+<div class="codehilite">
+<pre><span></span><code><span class="k">[Desktop Entry]</span><span class="w"></span>
+<span class="na">Name</span><span class="o">=</span><span class="s">awesome</span><span class="w"></span>
+<span class="na">Comment</span><span class="o">=</span><span class="s">Highly configurable framework window manager</span><span class="w"></span>
+<span class="na">TryExec</span><span class="o">=</span><span class="s">awesome</span><span class="w"></span>
+<span class="na">Exec</span><span class="o">=</span><span class="s">awesome-dbg</span><span class="w"></span>
+<span class="na">Type</span><span class="o">=</span><span class="s">Application</span><span class="w"></span>
+<span class="na">Icon</span><span class="o">=</span><span class="s">/usr/share/pixmaps/awesome.xpm</span><span class="w"></span>
+<span class="na">Keywords</span><span class="o">=</span><span class="s">Window manager</span><span class="w"></span>
+</code></pre>
+</div>
 
 <p>And <code>/usr/local/bin/awesome-dbg</code>, the wrapper script to do output redirection:</p>
 
-<div class="codehilite"><pre><span></span><code><span class="ch">#!/bin/sh</span>
+<div class="codehilite">
+<pre><span></span><code><span class="ch">#!/bin/sh</span>
 
 <span class="nb">exec</span> awesome <span class="s2">&quot;</span><span class="nv">$@</span><span class="s2">&quot;</span> &gt; ~/.awesome-dbg
-</code></pre></div>
+</code></pre>
+</div>
 
 <p>Now you can sprinkle <code>print("text")</code> and <code>gears.debug.dump(obj, "text")</code> anywhere you see fit and tail <code>~/.awesome-dbg</code>.</p>
 
@@ -489,12 +508,14 @@ I'd prefer a "merge" type behaviour, where the windows on the removed screen bec
 
 <p>In order to avoid breaking your config and being unable to use your computer, it's really nice to be able to start another instance of AwesomeWM while you hack away on the config. This is easy to pull of by using Xephyr to start a nested X session:</p>
 
-<div class="codehilite"><pre><span></span><code>Xephyr -ac -screen 3430x1380 :99 <span class="o">&amp;</span>
+<div class="codehilite">
+<pre><span></span><code>Xephyr -ac -screen 3430x1380 :99 <span class="o">&amp;</span>
 <span class="k">set</span> -x DISPLAY :99
 <span class="c"># if you haven&#39;t embraced the fish shell yet:</span>
 <span class="c"># export DISPLAY=:99</span>
 awesome -c ~/path/to/rc.lua
-</code></pre></div>
+</code></pre>
+</div>
 
 <h1 id="closing">Closing</h1>
 

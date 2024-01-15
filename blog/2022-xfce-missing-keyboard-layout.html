@@ -21,14 +21,12 @@
               linear-gradient(#999, #999),
               var(--tile);
           background-blend-mode: multiply, normal;
-          background-attachment: fixed;
           color: #fff;
       }
       html.light {
           background-image:
               linear-gradient(#DDD, #DDD),
               var(--tile);
-          background-attachment: fixed;
           background-blend-mode: screen, normal;
           color: #000;
       }
@@ -138,6 +136,7 @@ img {
     padding-left: 10px;
     border-radius: 4px;
     margin-bottom: 20px;
+    overflow: scroll;
 }
 li>code, p>code {
     padding: 2px;
